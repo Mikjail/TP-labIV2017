@@ -13,14 +13,18 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/index';
 import { NoContentComponent } from './no-content/index';
 import { LoginComponent } from './login/index';
+import { ProductsComponent } from './products/products.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NoContentComponent,
-    LoginComponent
-  ],
+    LoginComponent,
+    ProductsComponent,
+    OrdersComponent
+    ],
   imports: [AlertModule.forRoot(),
     BrowserModule,
     FormsModule,

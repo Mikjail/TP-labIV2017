@@ -6,9 +6,14 @@ import { NoContentComponent } from './no-content/index';
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: '', component: HomeComponent, children: 
+        [
+            { path: 'client', loadChildren: 'app/client/client.module#ClientModule'}
+        ]
+    },
     { path: 'login', component: LoginComponent },
     // otherwise redirect to home
+    //{ path: '**', redirectTo: '' }
     { path: '**', redirectTo: '' }
 ];
 
