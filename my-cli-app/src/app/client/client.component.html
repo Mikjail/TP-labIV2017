@@ -1,4 +1,20 @@
 <p>
-    client works!
+    Hola {{nombre}} {{numero}}
 </p>
+<input type="text" [(ngModel)]="nombre" />
+<button class="btn btn-success" (click)="mostrarNombre()">Mostrar Nombre</button>
+<a [href]="nombre" target="blank" *ngIf="mostrar">{{nombre}}</a>
+<br>
+
+
+<button class="btn btn-success" (mouseover)="numero = numero+1">mouseover</button>
+<img [src]="foto" alt="" [style.top.px]="numero" style="position:absolute; width:80px;">
+<div class="col-md-offset-3">
+    <input type="radio" (change)="mostrar = false">
+
+    <input type="radio" (change)="mostrar = true">
+
+
+    <input type="radio" [(ngModel)]="mostrar">
+</div>
 <router-outlet></router-outlet>
