@@ -1,0 +1,28 @@
+<button class="pull-right btn btn-success">Nuevo</button>
+<div class="container">
+    <div class="row">
+        <table class="table table-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th colspan="8">Stock de Productos</th>
+                </tr>
+                <tr>
+                    <th>TipoProducto</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let products of productos;">
+                    <td>{{products.tipoProducto}}</td>
+                    <td>{{products.nombre}}</td>
+                    <td>{{products.precio}}</td>
+                    <td>{{products.cantidad}}</td>
+                    <td><button class="btn btn-warning">Editar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

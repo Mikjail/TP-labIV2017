@@ -6,9 +6,9 @@ import { ClientComponent } from './client.component';
 
 const clientRoutes: Routes = [
   {
-    path: '', component: ClientComponent
+    path: 'client', component: ClientComponent
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'client' }
 ]
 @NgModule({
   imports: [

@@ -2,28 +2,30 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
-import { OrdersComponent } from './orders/index';
+import { OrdersComponent } from './home/orders/index';
+import { ProductsComponent } from './home/products/index';
 import { NoContentComponent } from './no-content/index';
+import { ClientComponent} from './home/client/index';
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent, children: 
+    // { path: 'home', component: HomeComponent, children: 
+    //     [
+    //         { path: 'client', component: ClientComponent },
+    //         { path: 'orders', component: OrdersComponent},
+    //         { path: 'products', component: ProductsComponent},
+    //     ]
+    // },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: 
         [
-            { path: 'products', loadChildren: 'app/products/products.module#ClientModule'},
+            { path: 'client', component: ClientComponent },
             { path: 'orders', component: OrdersComponent},
-            { path: 'client', loadChildren: 'app/client/client.module#ClientModule'},
-        ]
-    },
-//     { path: '', component: HomeComponent, canActivate: [AuthGuard], children: 
-//         [
-//             { path: 'products', loadChildren: 'app/products/products.module#ClientModule'},
-//             { path: 'orders', loadChildren: 'app/orders/orders.module#ClientModule'},
-//             { path: 'client', loadChildren: 'app/client/client.module#ClientModule'},
-//         ]},
-//     { path: 'login', component: LoginComponent },
-//  // otherwise redirect to home
-//     //{ path: '**', redirectTo: '' }
-    { path: '**', redirectTo: '' }
+            { path: 'products', component: ProductsComponent},
+        ]},
+    { path: 'login', component: LoginComponent },
+ // otherwise redirect to home
+    { path: '**', redirectTo: 'home' }
+    // { path: '**', redirectTo: 'home' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

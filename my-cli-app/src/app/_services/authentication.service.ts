@@ -9,8 +9,9 @@ export class AuthenticationService {
 
     login(nombre: string, password: string) {
         // let url = 'https://plusvibestudio-mikjail.c9users.io/back/index.php';
+        let url = 'localhost:8080';
          
-         let url = 'http://localhost/proyectos/plusvibestudio/TPlaboratorioIV2016/back/index.php';
+         //let url = 'http://localhost/proyectos/plusvibestudio/TPlaboratorioIV2016/back/index.php';
          let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8'); 
         return this.http.post(url + '/auth/login', JSON.stringify({ nombre: nombre, password: password }),{
