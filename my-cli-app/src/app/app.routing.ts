@@ -5,7 +5,6 @@ import { LoginComponent } from './login/index';
 import { OrdersComponent } from './home/orders/index';
 import { ProductsComponent } from './home/products/index';
 import { NoContentComponent } from './no-content/index';
-import { ClientComponent} from './home/client/index';
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
@@ -18,7 +17,11 @@ const appRoutes: Routes = [
     // },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: 
         [
-            { path: 'client', component: ClientComponent },
+            { path: 'client', component: ClientComponent, children:[
+                {
+                    path:"new", component: NewClientComponent
+                }
+            ]},
             { path: 'orders', component: OrdersComponent},
             { path: 'products', component: ProductsComponent},
         ]},
