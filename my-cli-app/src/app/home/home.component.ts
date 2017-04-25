@@ -14,10 +14,10 @@ export class HomeComponent implements OnInit {
   constructor(private userService : UserService) {}
 
   ngOnInit() {
-      this.userService.getAll()
-      .subscribe((usuarios : any) =>{
-          this.users= usuarios;  
-      });
+    //   this.userService.getAll()
+    //   .subscribe((usuarios : any) =>{
+    //       this.users= usuarios;  
+    //   });
   }
 
 }

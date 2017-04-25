@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AlertModule } from 'ng2-bootstrap';
@@ -9,15 +9,17 @@ import { AuthenticationService, UserService, ProductService  } from './_services
 
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
-
 import { RegisterComponent } from './register/index';
 import { HomeComponent } from './home/index';
 import { NoContentComponent } from './no-content/index';
 import { LoginComponent } from './login/index';
-import { ProductsComponent } from './home/products/products.component';
-import { OrdersComponent } from './home/orders/orders.component';
-import { ClientComponent } from './home/client/client.component';
 
+import { ProductsComponent, NewProductsComponent, ListProductsComponent } from './home/products/index';
+
+import { OrdersComponent } from './home/orders/orders.component';
+
+import { ClientComponent } from './home/client/client.component';
+import { NewClientComponent } from './home/client/client-new.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,15 @@ import { ClientComponent } from './home/client/client.component';
     LoginComponent,
     OrdersComponent,
     ProductsComponent,
-    ClientComponent
+    NewProductsComponent,
+    ListProductsComponent,
+    ClientComponent,
+    NewClientComponent
     ],
   imports: [AlertModule.forRoot(),
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing
   ],
@@ -42,6 +48,6 @@ import { ClientComponent } from './home/client/client.component';
     UserService,
     ProductService
     ],
-  bootstrap: [AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

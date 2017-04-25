@@ -7,7 +7,7 @@
 <br>
 
 
-<button class="btn btn-success" (mouseover)="numero = numero+1">mouseover</button>
+<button class="btn btn-success" (mouseover)="numero = numero+1" (click)="newClient()">mouseover</button>
 <img [src]="foto" alt="" [style.top.px]="numero" style="position:absolute; width:80px;">
 <div class="col-md-offset-3">
     <input type="radio" (change)="mostrar = false">

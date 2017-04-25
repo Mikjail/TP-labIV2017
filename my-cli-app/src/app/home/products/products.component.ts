@@ -1,31 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../_services/index';
-import { Product } from '../../_models/product';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'],
-  providers: [ProductService]
+  styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  
-  productos: Array<Product>;
+  mostrar:boolean= true;
 
-  constructor(private productServices: ProductService) {
-    this.productos = new Array<Product>();
-    this.getProducts();
-    console.log(this.productos);
+  constructor() {
    }
 
   ngOnInit() {
   }
 
-  getProducts(){
-    this.productServices.getAll().subscribe(
-      data => this.productos = data.productos,
-      error => console.log(error),
-      () => console.log("finished")
-    );  
-  }
 }

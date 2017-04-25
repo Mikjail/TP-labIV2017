@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-client',
@@ -11,12 +12,16 @@ export class ClientComponent implements OnInit {
   mostrar:boolean;
   numero:number=0;
   foto:string="assets/juli.jpg"
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
 
   mostrarNombre(){
     console.log(this.nombre);
+  }
+
+  newClient(){
+      this.router.navigate(["./client/newClient"]);
   }
 }
