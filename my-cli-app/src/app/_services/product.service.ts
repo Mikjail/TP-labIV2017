@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
-import { User } from '../_models/index';
+import { Product } from '../_models/index';
 
 @Injectable()
 export class ProductService {
@@ -16,15 +16,15 @@ export class ProductService {
     }
 
     getById(id: number) {
-        return this._http.get('/productos/' + id, this.jwt()).map((response: Response) => response.json());
+        return this._http.get(this.url +'/productos/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    create(user: User) {
-        return this._http.post('/productos', user, this.jwt()).map((response: Response) => response.json());
+    create(product: Product) {
+        return this._http.post(this.url +'/productos/', product, this.jwt()).map((response: Response) => response.json());
     }
 
-    update(user: User) {
-        return this._http.put('/productos/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+    update(product: Product) {
+        return this._http.put(this.url +'/productos', product, this.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {

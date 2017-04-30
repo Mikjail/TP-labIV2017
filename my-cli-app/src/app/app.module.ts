@@ -14,7 +14,7 @@ import { HomeComponent } from './home/index';
 import { NoContentComponent } from './no-content/index';
 import { LoginComponent } from './login/index';
 
-import { ProductsComponent, NewProductsComponent, ListProductsComponent } from './home/products/index';
+import { ProductsComponent, DetailProductsComponent, NewProductsComponent, ListProductsComponent } from './home/products/index';
 
 import { OrdersComponent } from './home/orders/orders.component';
 
@@ -32,6 +32,7 @@ import { NewClientComponent } from './home/client/client-new.component';
     ProductsComponent,
     NewProductsComponent,
     ListProductsComponent,
+    DetailProductsComponent,
     ClientComponent,
     NewClientComponent
     ],

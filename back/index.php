@@ -209,8 +209,8 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 #Productos
 
  //Alta de producto
-	$app->post("/productos/{producto}", function($request, $response, $args){
-		var_dump("INGRESO");
+	$app->post("/productos", function($request, $response, $args){
+
 		//Recupero los datos del formulario de alta del producto en un stdClass
 		$producto = json_decode($request->getBody()); // $producto->nombre = "Mika"
 		//Modifico el producto
@@ -238,7 +238,22 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		$response->getBody()->write(json_encode($respuesta));
 		return $response;		
 	});
-
+	
+	 //Tomar un solo productos
+	$app->get("/productos/{id}", function($request, $response, $args){
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$id = json_decode($args["id"]);// $producto->nombre = "Mika"
+		//Modifico el producto
+	
+		//Traigo todos los productos
+		require_once "clases/producto.php";
+		$productos = Producto::TraerUnProductoPorId($id);
+		$respuesta["productos"] = $productos;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+	
     //Borrar producto segun su id.
 	$app->delete("/productos/{id}", function($request, $response, $args){
 		//Recupero el Id del producto
@@ -259,7 +274,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 	});
 
     //Modificar producto
-	$app->put("/productos/{producto}", function($request, $response, $args){
+	$app->put("/productos", function($request, $response, $args){
 		//Recupero los datos del formulario de modificación del producto en un stdClass
 		$producto = json_decode($request->getBody()); // $producto->nombre = "Mika" 
 		//Modifico el producto
