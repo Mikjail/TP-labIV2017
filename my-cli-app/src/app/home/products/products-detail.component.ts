@@ -5,7 +5,7 @@ import { ProductService } from '../../_services/index';
 import { Product } from '../../_models/product';
 
 
-import { ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-products-detail',
@@ -20,10 +20,10 @@ export class DetailProductsComponent implements OnInit{
   private producto: Product;
   public productsForm: FormGroup;
   private editar=true;
-  editarNow:boolean;
+  editarNow:boolean = false;
   public tipos = ['arepaMaiz', 'arepaTrigo', 'empanada', 'salsa', 'postre'];
   
-  constructor(private _fb:FormBuilder, private productServices: ProductService,  private _router: ActivatedRoute) {
+  constructor(private _fb:FormBuilder, private productServices: ProductService,  private _router: ActivatedRoute, private _routerNav: Router) {
      this.producto = new Product();
      let id= this._router.params.subscribe((params:Params) =>{
         this.getProduct(params.id);
@@ -38,7 +38,7 @@ export class DetailProductsComponent implements OnInit{
       'ingredientes' : [''],
       'cantidad':[''],
       'precio': [''],
-      'img' : ['']
+      'img' : [''],
     })
   }
 
@@ -55,7 +55,7 @@ export class DetailProductsComponent implements OnInit{
     this.productServices.update(this.producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => this.editarNow=false
+      () => this._routerNav.navigate(['../home/products/'])
     )
   }
   

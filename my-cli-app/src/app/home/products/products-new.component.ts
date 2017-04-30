@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router} from '@angular/router';
 
 import { Product } from '../../_models/product';
 import { ProductService } from  '../../_services/index';
@@ -14,10 +15,9 @@ import { ProductService } from  '../../_services/index';
 export class NewProductsComponent implements OnInit{
   
     public productsForm: FormGroup;
-    public submitted: boolean;
-    public events: any[] = [];
+    public tipos = ['arepaMaiz', 'arepaTrigo', 'empanada', 'salsa', 'postre'];
 
-constructor(private _fb:FormBuilder, private productServices: ProductService) { }
+constructor(private _fb:FormBuilder, private productServices: ProductService, private _router: Router) { }
   
   ngOnInit() {
       this.productsForm = this._fb.group({
@@ -36,7 +36,7 @@ constructor(private _fb:FormBuilder, private productServices: ProductService) { 
     this.productServices.create(producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => console.log("finished")
+      () => this._router.navigate(['../home/products/'])
     )
     console.log(producto);
 
