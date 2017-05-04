@@ -6,5 +6,5 @@ export class Product {
     img: string;
     precio: number;
     cantidad:number;
-    tipoProducto:string;
+    id_tipoProducto:string;
 }

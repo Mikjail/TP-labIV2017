@@ -6,9 +6,9 @@ import { User } from '../_models/index';
 @Injectable()
 export class UserService {
     constructor(private http: Http) { }
-
+    url = 'http://localhost:8080';
     getAll() {
-        return this.http.get('users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.url +'/users', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {

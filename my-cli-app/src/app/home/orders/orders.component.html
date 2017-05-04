@@ -1,3 +1,26 @@
 <p>
-  orders works!
+    orders works!
 </p>
+
+<table class="table table-bordered table-condensed table-hover">
+    <thead>
+        <tr>
+            <th colspan="8">Stock de Productos</th>
+        </tr>
+        <tr>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entidad of entidades;">
+            <td>{{entidad.first_name}}</td>
+            <td>{{entidad.last_name}}</td>
+            <td>{{entidad.email}}</td>
+            <td>{{entidad.gender}}</td>
+            <td>{{entidad.address}}</td>
+        </tr>
+    </tbody>

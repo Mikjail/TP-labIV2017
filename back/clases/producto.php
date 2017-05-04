@@ -9,7 +9,7 @@ class Producto {
     public $img;
     public $precio;
     public $cantidad;
-    public $tipoProducto;
+    public $id_tipoProducto;
     
     
 #CONSTRUCTOR
@@ -23,7 +23,7 @@ class Producto {
 			$this->descripcion = $obj->getDescripcion();
 			$this->ingredientes = $obj->getIngredientes();
 			$this->img = $obj->getImg();
-            $this->tipoProducto = $obj->getTipoProducto();
+            $this->id_tipoProducto = $obj->getTipoProducto();
             $this->precio = $obj->getPrecio();
             $this->cantidad = $obj->getCantidad();
             // $this->total = $obj->getTotal();
@@ -50,7 +50,7 @@ class Producto {
    
     public function getTipoProducto()
 	{
-		return $this->tipoProducto;
+		return $this->id_tipoProducto;
 	}
     
     public function getPrecio()
@@ -84,7 +84,7 @@ class Producto {
 	}
     public function setTipoProducto($valor)
 	{
-		$this->tipoProducto = $valor;
+		$this->id_tipoProducto = $valor;
 	}
     
     public function setPrecio($valor)
@@ -105,7 +105,7 @@ public static function TraerUnProductoPorId($id){
 		$conexion = self::CrearConexion();
 
 		$sql = "SELECT P.id, P.nombre, P.descripcion, P.ingredientes, 
-                       P.img, P.tipoProducto, P.precio, P.cantidad
+                       P.img, P.id_tipoProducto, P.precio, P.cantidad
 				FROM productos P
 				WHERE P.id = :id";
 
@@ -121,7 +121,7 @@ public static function TraerUnProductoPorId($id){
 		$conexion = self::CrearConexion();
 
 		$sql = "SELECT P.id, P.nombre, P.descripcion, P.ingredientes, 
-                       P.img, P.tipoProducto, P.precio, P.cantidad
+                       P.img, P.id_tipoProducto, P.precio, P.cantidad
 				FROM productos P";
 
 		$consulta = $conexion->prepare($sql);
@@ -135,9 +135,9 @@ public static function TraerUnProductoPorId($id){
 		$conexion = self::CrearConexion();
 
 		$sql = "INSERT INTO productos (nombre, descripcion, ingredientes,
-		 img, tipoProducto, precio, cantidad)
+		 img, id_tipoProducto, precio, cantidad)
 				VALUES (:nombre, :descripcion, :ingredientes,
-                :img, :tipoProducto, :precio, :cantidad )";
+                :img, :id_tipoProducto, :precio, :cantidad )";
 
 		
 		$consulta = $conexion->prepare($sql);
@@ -145,7 +145,7 @@ public static function TraerUnProductoPorId($id){
 		$consulta->bindValue(":descripcion", $producto->descripcion, PDO::PARAM_STR);
 		$consulta->bindValue(":ingredientes", $producto->ingredientes, PDO::PARAM_STR);
         $consulta->bindValue(":img", $producto->img, PDO::PARAM_STR);
-		$consulta->bindValue(":tipoProducto", $producto->tipoProducto, PDO::PARAM_STR);
+		$consulta->bindValue(":id_tipoProducto", $producto->id_tipoProducto, PDO::PARAM_STR);
 		$consulta->bindValue(":precio", $producto->precio, PDO::PARAM_STR);
     	$consulta->bindValue(":cantidad", $producto->cantidad, PDO::PARAM_STR);
     	// $consulta->bindValue(":total", $producto->total, PDO::PARAM_STR);
@@ -161,7 +161,7 @@ public static function TraerUnProductoPorId($id){
 
 		$sql = "UPDATE productos
 				SET nombre = :nombre, descripcion = :descripcion, ingredientes = :ingredientes,
-                 img = :img, tipoProducto = :tipoProducto, precio = :precio, cantidad = :cantidad
+                 img = :img, id_tipoProducto = :tipoProducto, precio = :precio, cantidad = :cantidad
 				WHERE id = :id"; //, password = :pass
 
 
@@ -170,7 +170,7 @@ public static function TraerUnProductoPorId($id){
 		$consulta->bindValue(":descripcion", $producto->descripcion, PDO::PARAM_STR);
 		$consulta->bindValue(":ingredientes", $producto->ingredientes, PDO::PARAM_STR);
 		$consulta->bindValue(":img", $producto->img, PDO::PARAM_STR);
-		$consulta->bindValue(":tipoProducto", $producto->tipoProducto, PDO::PARAM_STR);
+		$consulta->bindValue(":tipoProducto", $producto->id_tipoProducto, PDO::PARAM_STR);
 		$consulta->bindValue(":precio", $producto->precio, PDO::PARAM_STR);
     	$consulta->bindValue(":cantidad", $producto->cantidad, PDO::PARAM_STR);
     	$consulta->bindValue(":id", $producto->id, PDO::PARAM_INT);

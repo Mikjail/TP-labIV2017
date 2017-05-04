@@ -35,7 +35,6 @@ export class ListProductsComponent implements OnInit{
   }
 
   onSelect(product:Product){
-    console.log(product.id);
     this._router.navigate(['../home/products/detailProduct',{ id: product.id}]);
   }
 }

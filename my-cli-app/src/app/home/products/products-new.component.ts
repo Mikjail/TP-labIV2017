@@ -15,19 +15,24 @@ import { ProductService } from  '../../_services/index';
 export class NewProductsComponent implements OnInit{
   
     public productsForm: FormGroup;
-    public tipos = ['arepaMaiz', 'arepaTrigo', 'empanada', 'salsa', 'postre'];
-
+    public tipos =[ { 'id' : 1, 'nombre':'arepaMaiz'},
+                   { 'id' : 2, 'nombre': 'arepaTrigo'}, 
+                   { 'id' : 3, 'nombre': 'empanada'},
+                   { 'id' : 4, 'nombre':'tequeños'},
+                   { 'id' : 5, 'nombre':'salsa'},
+                   { 'id' : 6, 'nombre':'postre'}];
+  
 constructor(private _fb:FormBuilder, private productServices: ProductService, private _router: Router) { }
   
   ngOnInit() {
       this.productsForm = this._fb.group({
-      'tipoProducto': [''],
+      'tipoProducto': ['',[<any>Validators.required]],
       'nombre' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
-      'descripcion': [''],
-      'ingredientes' : [''],
-      'cantidad':[''],
-      'precio': [''],
-      'img' : ['']
+      'descripcion':  ['',[<any>Validators.required,<any>Validators.minLength(5)]],
+      'ingredientes' :  ['',[<any>Validators.required]],
+      'cantidad': ['',[<any>Validators.required]],
+      'precio':  ['',[<any>Validators.required]],
+      'img' :  ['',[<any>Validators.required]],
     })
   }
 

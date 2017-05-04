@@ -12,9 +12,10 @@
             <img src={{producto.img}} alt="" class="img-responsive">
             <div class="form-group">
                 <label>Tipo de Producto</label>
-                <select class="form-control" formControlName="tipoProducto" [(ngModel)]="producto.tipoProducto">
-            <option *ngFor="let item of tipos" value={{item}} >{{item}}</option>
-            </select>
+                <select class="form-control" formControlName="tipoProducto">
+                 <option disabled selected value>{{selectOption}}</option>
+                <option *ngFor="let item of tipos;" [ngValue]="item.id">{{item.nombre}}</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="">Nombre</label>

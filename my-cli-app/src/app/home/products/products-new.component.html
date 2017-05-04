@@ -7,8 +7,9 @@
             <div class="form-group">
                 <label>Tipo de Producto</label>
                 <select class="form-control" formControlName="tipoProducto">
-            <option *ngFor="let item of tipos" value="{{item}}">{{item}}</option>
-            </select>
+                <option disabled selected value> -- Seleccione tipo Producto-- </option>
+                 <option *ngFor="let item of tipos;" [ngValue]="item.id">{{item.nombre}}</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="">Nombre</label>
@@ -55,7 +56,7 @@
           </small>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </div>
         </form>
     </div>

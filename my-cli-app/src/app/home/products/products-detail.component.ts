@@ -21,7 +21,13 @@ export class DetailProductsComponent implements OnInit{
   public productsForm: FormGroup;
   private editar=true;
   editarNow:boolean = false;
-  public tipos = ['arepaMaiz', 'arepaTrigo', 'empanada', 'salsa', 'postre'];
+  private selectOption: any;
+  public tipos = [ { 'id' : 1, 'nombre':'arepaMaiz'},
+                   { 'id' : 2, 'nombre': 'arepaTrigo'}, 
+                   { 'id' : 3, 'nombre': 'empanada'},
+                   { 'id' : 4, 'nombre':'tequeños'},
+                   { 'id' : 5, 'nombre':'salsa'},
+                   { 'id' : 6, 'nombre':'postre'}];
   
   constructor(private _fb:FormBuilder, private productServices: ProductService,  private _router: ActivatedRoute, private _routerNav: Router) {
      this.producto = new Product();
@@ -32,13 +38,13 @@ export class DetailProductsComponent implements OnInit{
 
   ngOnInit() {
       this.productsForm = this._fb.group({
-      'tipoProducto': [''],
+      'tipoProducto': ['',[<any>Validators.required]],
       'nombre' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
-      'descripcion': [''],
-      'ingredientes' : [''],
+      'descripcion': ['',[<any>Validators.required,<any>Validators.minLength(5)]],
+      'ingredientes' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'cantidad':[''],
-      'precio': [''],
-      'img' : [''],
+      'precio':['',[<any>Validators.required]],
+      'img' : ['',[<any>Validators.required,<any>Validators.minLength(5)]]
     })
   }
 
@@ -46,6 +52,7 @@ export class DetailProductsComponent implements OnInit{
   this.productServices.getById(id).subscribe(
     data => { 
       this.producto = data.productos
+      this.selectOption = this.tipos[this.producto.id_tipoProducto].nombre;
   },
     error => { console.log(error)},
       () => { console.log("finished") });

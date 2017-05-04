@@ -20,7 +20,7 @@ export class ProductService {
     }
 
     create(product: Product) {
-        return this._http.post(this.url +'/productos/', product, this.jwt()).map((response: Response) => response.json());
+        return this._http.post(this.url +'/productos', product, this.jwt()).map((response: Response) => response.json());
     }
 
     update(product: Product) {
