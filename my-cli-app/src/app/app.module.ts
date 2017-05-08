@@ -18,8 +18,7 @@ import { ProductsComponent, DetailProductsComponent, NewProductsComponent, ListP
 
 import { OrdersComponent } from './home/orders/orders.component';
 
-import { ClientComponent } from './home/client/client.component';
-import { NewClientComponent } from './home/client/client-new.component';
+import { ClientComponent, NewClientComponent, DetailClientComponent } from './home/client/index';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,8 @@ import { NewClientComponent } from './home/client/client-new.component';
     ListProductsComponent,
     DetailProductsComponent,
     ClientComponent,
-    NewClientComponent
+    NewClientComponent,
+    DetailClientComponent
     ],
   imports: [AlertModule.forRoot(),
     BrowserModule,

@@ -1,0 +1,34 @@
+<a routerLink="./newClient" routerLinkActive="active-link" class="pull-right btn btn-success">Nuevo</a>
+
+<div class="col-sm-8 col-sm-offset-2">
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th colspan="8">Lista de Personas</th>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>telefono</th>
+                <!--<th>Sexo</th>-->
+                <th>Pass</th>
+                <th>Foto</th>
+                <th>Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let persona of personas;">
+                <td>{{persona.id}}</td>
+                <td>{{persona.nombre}}</td>
+                <td>{{persona.apellido}}</td>
+                <td>{{persona.telefono}}</td>
+                <!--<td *ngIf="persona.sexo == 'f'" style="background-color:#ff5e5e">{{persona.sexo}}</td>
+                <td *ngIf="persona.sexo == 'm'" style="background-color:#71ef6d">{{persona.sexo}}</td>-->
+                <td>{{persona.pass}}</td>
+                <td><img src={{persona.foto}} alt="" style="width:50px; height:50px;"></td>
+                <td><button class="btn btn-warning" (click)="borrar(persona.id)">Borrar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
