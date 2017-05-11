@@ -212,7 +212,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 	$app->post("/productos", function($request, $response, $args){
 
 		//Recupero los datos del formulario de alta del producto en un stdClass
-		$producto = json_decode($request->getBody()); // $producto->nombre = "Mika"
+		$persona = json_decode($request->getBody()); // $producto->nombre = "Mika"
 		//Modifico el producto
 		try{
 			require_once "clases/producto.php";
@@ -282,6 +282,90 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 			require_once "clases/producto.php";
 			$respuesta["cantidad"] = Producto::Modificar($producto);
 			$respuesta["mensaje"] = "Se modificaron ".$respuesta["cantidad"]." productos";
+		}
+		catch (Exception $e){
+			$respuesta["nuevoId"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+#Personas
+
+$app->post("/personas", function($request, $response, $args){
+
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$persona = json_decode($request->getBody()); // $producto->nombre = "Mika"
+		//Modifico el producto
+		try{
+			require_once "clases/persona.php";
+			$respuesta["idAgregado"] = Persona::Agregar($persona);
+			$respuesta["mensaje"] = "Se agregó el producto #".$respuesta["idAgregado"];
+		}
+		catch (Exception $e){
+			$respuesta["idAgregado"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+    //Tomar todos los personas
+	$app->get("/personas", function($request, $response, $args){
+		//Traigo todos los personas
+		require_once "clases/persona.php";
+		$personas = Persona::TraerTodasLasPersonas();		
+		$respuesta["personas"] = $personas;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+	
+	 //Tomar un solo personas
+	$app->get("/personas/{id}", function($request, $response, $args){
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$id = json_decode($args["id"]);// $producto->nombre = "Mika"
+		//Modifico el producto
+	
+		//Traigo todos los personas
+		require_once "clases/persona.php";
+		$personas = Persona::TraerUnaPersonaPorId($id);
+		$respuesta["personas"] = $personas;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+	
+    //Borrar producto segun su id.
+	$app->delete("/personas/{id}", function($request, $response, $args){
+		//Recupero el Id del producto
+		$id = json_decode($args["id"]);
+		//Elimino el producto
+		try{
+			require_once "clases/persona.php";
+			$respuesta["cantidad"] = Persona::Eliminar($id);
+			$respuesta["mensaje"] = "Se eliminaron ".$respuesta["cantidad"]." personas";
+		}
+		catch (Exception $e){
+			$respuesta["nuevoId"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+    //Modificar producto
+	$app->put("/personas", function($request, $response, $args){
+		//Recupero los datos del formulario de modificación del producto en un stdClass
+		$persona = json_decode($request->getBody()); // $producto->nombre = "Mika" 
+		//Modifico el producto
+		try{
+			require_once "clases/persona.php";
+			$respuesta["cantidad"] = Persona::Modificar($producto);
+			$respuesta["mensaje"] = "Se modificaron ".$respuesta["cantidad"]." personas";
 		}
 		catch (Exception $e){
 			$respuesta["nuevoId"] = "ERROR";
