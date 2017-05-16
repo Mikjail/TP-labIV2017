@@ -1,0 +1,37 @@
+<a routerLink="./newProduct" routerLinkActive="active-link" class="pull-right btn btn-success">Nuevo</a>
+<div class="row">
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th colspan="8">Stock de Productos</th>
+            </tr>
+            <tr>
+                <th>TipoProducto</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let products of productos;">
+                <td *ngIf="products.id_tipoProducto == 1">
+                    Arepa de Maiz</td>
+                <td *ngIf="products.id_tipoProducto == 2">
+                    Arepa de Trigo</td>
+                <td *ngIf="products.id_tipoProducto == 3">
+                    Empanada</td>
+                <td *ngIf="products.id_tipoProducto == 4">
+                    Tequeños</td>
+                <td *ngIf="products.id_tipoProducto == 5">
+                    Salsa</td>
+                <td *ngIf="products.id_tipoProducto == 6">
+                    Postre</td>
+                <td>{{products.nombre}}</td>
+                <td>{{products.precio}}</td>
+                <td>{{products.cantidad}}</td>
+                <td><button class="btn btn-warning" (click)="onSelect(products)">Detalles</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,5 @@
+<button class="pull-right btn btn-success" (click)="nuevo=true" *ngIf="nuevo == false">Nuevo</button>
+<button class="pull-right btn btn-success" (click)="nuevo=false" *ngIf="nuevo == true">Atras</button>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

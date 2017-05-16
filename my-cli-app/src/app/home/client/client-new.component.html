@@ -1,0 +1,47 @@
+<a routerLink="../" routerLinkActive="active-link" class="pull-right btn btn-success">Volver</a>
+<form [formGroup]="personasForm" novalidate (ngSubmit)="submitForm(personasForm.valid)">
+    <div class="form-group">
+        <label for="">Nombre</label>
+        <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="persona.nombre" formControlName="nombre">
+        <small [hidden]="personasForm.controls.nombre.valid || (personasForm.controls.nombre.pristine && !submitted)" class="text-danger">
+            El nombre del producto es requerido (minimo 5 caracteres).
+          </small>
+        <!--<pre class="margin-20">{{ personasForm.controls.name.errors | json }}</pre>-->
+    </div>
+    <div class="form-group">
+        <label for="">apellido</label>
+        <input type="text" class="form-control" placeholder="Ejemplo: 'Martinez'" [(ngModel)]="persona.apellido" formControlName="apellido">
+        <small [hidden]="personasForm.controls.apellido.valid || (personasForm.controls.apellido.pristine && !submitted)" class="text-danger">
+            El nombre del producto es requerido (minimo 5 caracteres).
+          </small>
+        <!--<pre class="margin-20">{{ personasForm.controls.name.errors | json }}</pre>-->
+    </div>
+    <div class="form-group">
+        <label>telefono</label>
+        <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="persona.telefono" formControlName="telefono">
+        <small [hidden]="personasForm.controls.telefono.valid || (personasForm.controls.telefono.pristine && !submitted)" class="text-danger">
+            EL campo cantidad del producto es requerido (Solo numeros 0-9).
+          </small>
+    </div>
+    <!--<div class="form-group">
+        <label>sexo</label>
+        <input class="form-control" type="text" placeholder="Ejemplo: 'Masculino'" [(ngModel)]="persona.sexo" formControlName="sexo">
+        <small [hidden]="personasForm.controls.sexo.valid || (personasForm.controls.sexo.pristine && !submitted)" class="text-danger">
+            EL campo cantidad del producto es requerido (Solo numeros 0-9).
+          </small>
+    </div>-->
+    <div class="form-group">
+        <label>pass</label>
+        <input class="form-control" type="password" placeholder="contrasena" [(ngModel)]="persona.pass" formControlName="pass">
+        <small [hidden]="personasForm.controls.pass.valid || (personasForm.controls.pass.pristine && !submitted)" class="text-danger">
+            EL campo cantidad del producto es requerido (Solo numeros 0-9).
+          </small>
+    </div>
+    <!--
+            <div class="form-group">
+                <input type="file" [(ngModel)]="persona.foto" formControlName="foto">
+            </div>-->
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+</form>
