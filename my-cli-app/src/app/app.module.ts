@@ -19,6 +19,7 @@ import { ProductsComponent, DetailProductsComponent, NewProductsComponent, ListP
 import { OrdersComponent } from './home/orders/orders.component';
 
 import { ClientComponent, NewClientComponent, DetailClientComponent } from './home/client/index';
+import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ClientComponent, NewClientComponent, DetailClientComponent } from './ho
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    routing
+    routing,
+    FileUploadModule
   ],
   providers: [
     AuthGuard, 

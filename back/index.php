@@ -206,7 +206,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		return $response;
 	});
 
-#Productos
+#PRODUCTOS
 
  //Alta de producto
 	$app->post("/productos", function($request, $response, $args){
@@ -291,9 +291,11 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		$response->getBody()->write(json_encode($respuesta));
 		return $response;
 	});
-#Personas
 
-$app->post("/personas", function($request, $response, $args){
+#PERSONAS
+
+	//Alta Personas
+	$app->post("/personas", function($request, $response, $args){
 
 		//Recupero los datos del formulario de alta del producto en un stdClass
 		$persona = json_decode($request->getBody()); // $producto->nombre = "Mika"
@@ -376,4 +378,37 @@ $app->post("/personas", function($request, $response, $args){
 		return $response;
 	});
 
+
+#TIPOPRODUCTOS
+	//Alta Personas
+	$app->post("/tipoproducto", function($request, $response, $args){
+
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$persona = json_decode($request->getBody()); // $producto->nombre = "Mika"
+		//Modifico el producto
+		try{
+			require_once "clases/persona.php";
+			$respuesta["idAgregado"] = Persona::Agregar($persona);
+			$respuesta["mensaje"] = "Se agregó el producto #".$respuesta["idAgregado"];
+		}
+		catch (Exception $e){
+			$respuesta["idAgregado"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+    //Tomar todos los Tipos de Productos
+	$app->get("/tipoproducto", function($request, $response, $args){
+		//Traigo todos los personas
+		require_once "clases/tipoProducto.php";
+		$tipoproductos = TipoProducto::TraerTodosLosTipoProductos();		
+		$respuesta = $tipoproductos;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+	
 $app->run();

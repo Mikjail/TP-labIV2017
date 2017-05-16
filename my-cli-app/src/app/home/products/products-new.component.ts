@@ -3,26 +3,22 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 
 import { Product } from '../../_models/product';
-import { ProductService } from  '../../_services/index';
-
+import { ProductService, ProductCategoryService } from  '../../_services/index';
 @Component({
   selector: 'app-products-new',
   templateUrl: './products-new.component.html',
   styleUrls: ['./products.component.css'],
-  providers: [ProductService]
+  providers: [ProductService, ProductCategoryService]
 })
 
 export class NewProductsComponent implements OnInit{
   
     public productsForm: FormGroup;
-    public tipos =[ { 'id' : 1, 'nombre':'arepaMaiz'},
-                   { 'id' : 2, 'nombre': 'arepaTrigo'}, 
-                   { 'id' : 3, 'nombre': 'empanada'},
-                   { 'id' : 4, 'nombre':'tequeños'},
-                   { 'id' : 5, 'nombre':'salsa'},
-                   { 'id' : 6, 'nombre':'postre'}];
+    public tipos =[];
   
-constructor(private _fb:FormBuilder, private productServices: ProductService, private _router: Router) { }
+constructor( private _router: Router, private _fb:FormBuilder, private productServices: ProductService, private productCategoryService: ProductCategoryService) {
+    this.getProductCategory();
+ }
   
   ngOnInit() {
       this.productsForm = this._fb.group({
@@ -34,6 +30,7 @@ constructor(private _fb:FormBuilder, private productServices: ProductService, pr
       'precio':  ['',[<any>Validators.required]],
       'img' :  ['',[<any>Validators.required]],
     })
+
   }
 
   submitForm(producto:Product){
@@ -45,6 +42,14 @@ constructor(private _fb:FormBuilder, private productServices: ProductService, pr
     )
     console.log(producto);
 
+  }
+
+  getProductCategory(){
+    return this.productCategoryService.getAll().subscribe(
+      data => this.tipos = data,
+      error => console.log(error),
+      () => console.log("finished")
+    );
   }
 
 }
