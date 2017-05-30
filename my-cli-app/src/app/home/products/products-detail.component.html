@@ -1,3 +1,17 @@
+<style>
+    .my-drop-zone {
+        border: dotted 3px lightgray;
+    }
+    
+    .nv-file-over {
+        border: dotted 3px red;
+    }
+    /* Default class applied to drop zones on over */
+    
+    .another-file-over-class {
+        border: dotted 3px green;
+    }
+</style>
 <a routerLink="../" routerLinkActive="active-link" class="pull-right btn btn-success">Volver</a>
 <div class="row">
     <div class="col-md-offset-3 col-md-6">
@@ -7,7 +21,7 @@
             <label for="Editar">Click para Editar datos</label>
             <input type="checkbox" [(ngModel)]="editarNow">
         </div>
-        <form [formGroup]="productsForm" novalidate (ngSubmit)="submitForm(productsForm.valid)">
+        <form [formGroup]="productsForm" (ngSubmit)="submitForm(productsForm.valid)">
 
             <img src={{producto.img}} alt="" class="img-responsive">
             <div class="form-group">
@@ -55,14 +69,73 @@
           </small>
             </div>
             <div class="form-group">
-                <label>Img Src</label>
+                <!--<label>Img Src</label>
                 <input class="form-control" type="text" placeholder="Ejemplo: 'img/ejemplo.jpg'" formControlName="img" [(ngModel)]="producto.img" [readonly]="!editarNow">
                 <small [hidden]="productsForm.controls.img.valid || (productsForm.controls.img.pristine && !submitted)" class="text-danger">
             EL campo precio del producto es requerido (Solo numeros 0-9).
-          </small>
+          </small>-->
+                <h3>Elija una Imagen </h3>
+
+                <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}" (fileOver)="fileOverAnother($event)" [uploader]="uploader" class="well my-drop-zone">
+                    Drop zone </div>
+
+                Multiple
+                <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+            </div>
+            <div>
+                Queue progress:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50%">Name</th>
+                        <th>Size</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uploader.queue">
+                        <td><strong>{{ item?.file?.name }}</strong></td>
+                        <td>{{ item.file.size}} MB</td>
+                        <td *ngIf="uploader.isHTML5">
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                            </div>
+                        </td>
+                        <td nowrap>
+                            <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <div>
+                    <div>
+                        Queue progress:
+                        <div class="progress" style="">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+
+                    <!--<button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>
+                    <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                </button>
+                    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove all
+                </button>-->
+                </div>
+
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success" [disabled]="!productsForm.valid">Submit</button>
             </div>
         </form>
     </div>

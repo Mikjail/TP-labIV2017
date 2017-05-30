@@ -5,7 +5,9 @@ import { ProductService } from '../../_services/index';
 import { Product } from '../../_models/product';
 
 
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ActivatedRoute, Params, Router} from '@angular/router';
+const URL = 'http://localhost:8080';
 
 @Component({
   selector: 'app-products-detail',
@@ -16,7 +18,7 @@ import { ActivatedRoute, Params, Router} from '@angular/router';
 
 
 export class DetailProductsComponent implements OnInit{
-
+ 
   private producto: Product;
   public productsForm: FormGroup;
   private editar=true;
@@ -28,7 +30,10 @@ export class DetailProductsComponent implements OnInit{
                    { 'id' : 4, 'nombre':'tequeños'},
                    { 'id' : 5, 'nombre':'salsa'},
                    { 'id' : 6, 'nombre':'postre'}];
-  
+
+  public uploader:FileUploader = new FileUploader({url: URL});
+  public hasAnotherDropZoneOver:boolean = false;
+
   constructor(private _fb:FormBuilder, private productServices: ProductService,  private _router: ActivatedRoute, private _routerNav: Router) {
      this.producto = new Product();
      let id= this._router.params.subscribe((params:Params) =>{
@@ -43,21 +48,29 @@ export class DetailProductsComponent implements OnInit{
       'descripcion': ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'ingredientes' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'cantidad':[''],
-      'precio':['',[<any>Validators.required]],
-      'img' : ['',[<any>Validators.required,<any>Validators.minLength(5)]]
+      'precio':[''],
+      'img' : ['']
     })
   }
+
+  
 
   getProduct(id){
   this.productServices.getById(id).subscribe(
     data => { 
       this.producto = data.productos
-      this.selectOption = this.tipos[this.producto.id_tipoProducto].nombre;
+      this.selectOption = this.tipos[parseInt(this.producto.id_tipoProducto)-1].nombre;
+      console.log(this.selectOption);
   },
     error => { console.log(error)},
       () => { console.log("finished") });
   }
 
+  public fileOverAnother(e:any):void {
+    this.hasAnotherDropZoneOver = e;
+  }
+  
+ 
   submitForm(){
     this.productServices.update(this.producto).subscribe(
       data => console.log(data),

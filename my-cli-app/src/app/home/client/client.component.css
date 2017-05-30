@@ -2,6 +2,22 @@ h1,
 h2,
 h3,
 h4,
-th {
+th,
+td {
     text-align: center;
+}
+
+.my-drop-zone {
+    border: dotted 3px lightgray;
+}
+
+.nv-file-over {
+    border: dotted 3px red;
+}
+
+
+/* Default class applied to drop zones on over */
+
+.another-file-over-class {
+    border: dotted 3px green;
 }
