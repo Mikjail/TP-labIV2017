@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th colspan="8">Pedidos del día</th>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Localidad</th>
+                    <th>Telefono</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-warning" (click)="onSelect(products)">Detalles</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

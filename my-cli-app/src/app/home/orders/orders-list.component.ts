@@ -1,35 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SearchClient }  from './client-search.component';
+import { OrderService } from '../../_services/index';
+import { Order } from '../../_models/order';
 
 import { Persona } from '../../_models/persona';
 import { PersonaService } from '../../_services/index';
-import { OrderService } from '../../_services/index';
-import { Order } from '../../_models/order';
+import { SearchClient } from './client-search.component'
+import { Router } from '@angular/router';
+
+
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
+  selector: 'app-orders-list',
+  templateUrl: './orders-list.component.html',
   styleUrls: ['./orders.component.css'],
   providers: [OrderService, PersonaService, SearchClient]
 })
 
-export class OrderComponent implements OnInit {
+export class ListOrdersComponent implements OnInit{
+
   personas: Array<Persona>;
   orders: Array<Order>;
   persona: Persona;
-  nuevo:boolean = false;
-
   constructor(private orderService: OrderService, private personaService: PersonaService, private _router: Router) {
     this.personas = new Array<Persona>();
     this.persona = new Persona();
    }
 
   ngOnInit() {
-    this.getPersonas();
+    this.getOrders();
   }
-   getPersonas(){
-    this.personaService.getAll().subscribe(
-      data => this.personas = data.personas,
+
+  getOrders(){
+    this.orderService.getAll().subscribe(
+      data => this.orders = data.orders,
       error => console.log(error),
       () => console.log("finished")
     );  
@@ -44,13 +46,9 @@ export class OrderComponent implements OnInit {
     });
   }
 
-   submitForm(){
-   console.log(this.persona.foto);
-    this.personaService.create(this.persona).subscribe(
-      data => console.log(data),
-      error => console.log("ERROR"),
-      () => console.log("finished")
-    )
+  onSelect(product:Order){
+    this._router.navigate(['../home/products/detailProduct',{ id: product.id}]);
   }
 
+  
 }

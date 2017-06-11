@@ -5,3 +5,4 @@ export * from './product.service';
 export * from './entidad.service';
 export * from './persona.service';
 export * from './productCategory.service';
+export * from './order.service';

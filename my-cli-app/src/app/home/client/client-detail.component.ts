@@ -23,17 +23,18 @@ export class DetailClientComponent implements OnInit{
     this.getPersonas();
   }
 
-  getFotos(){
-    this.personas.forEach(persona => {
-        persona.foto = "assets/fotos/"+persona.foto;
-    });
-  }
   getPersonas(){
     this.personaService.getAll().subscribe(
       data => this.personas = data.personas,
       error => console.log(error),
       () => this.getFotos(),
     );  
+  }
+  
+  getFotos(){
+    this.personas.forEach(persona => {
+        persona.foto = "assets/fotos/"+persona.foto;
+    });
   }
   borrar(id){
      this.personaService.delete(id).subscribe(
