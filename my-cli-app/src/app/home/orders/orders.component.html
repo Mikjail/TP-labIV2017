@@ -1,41 +1,92 @@
 <div class="container">
     <div class="row">
+        <div class="col-sm-6">
 
-        <div class="col-sm-6" *ngIf="!nuevo">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Nombre</span>
-                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            <div class="col-sm-12" *ngIf="status == 'buscar'">
+                <br>
+                <button class="btn btn-primary pull-right" (click)="status = 'nuevo'">Nuevo</button>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Telefono</span>
+                    <input type="number" class="form-control" [(ngModel)]='telfTxt' placeholder="Telefono" aria-describedby="basic-addon1">
+                </div>
+
+                <table *ngIf="telfTxt != ''" class="table table-bordered table-condensed table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let persona of clientes | searchClientByPhone: 'telefono' : telfTxt">
+                            <td>
+                                {{persona.nombre}} {{persona.apellido}}
+
+                            </td>
+                            <td>
+                                {{persona.telefono}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-sm-12" *ngIf="status=='nuevo'">
+                <br>
+                <button class="btn btn-primary pull-right" (click)="status = 'buscar'">Volver</button>
+                <br>
+                <form (ngSubmit)="submitForm()">
+                    <div class="form-group">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="persona.nombre" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="persona.telefono" name="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCalle" class="control-label">Calle</label>
+                        <input type="text" class="form-control" id="inputCalle" pattern="([A-z-ñ\s]){1,}$" maxlength="30" placeholder="Calle*" ng-model="calle">
+                        <div class="help-block with-errors">A-z</div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="inputAltura" class="control-label">Altura</label>
+                        <input type="text" class="form-control" id="inputAltura" pattern="^[0-9]{1,}" maxlength="12" placeholder="Altura*" ng-model="altura">
+                        <div class="help-block with-errors">0-99999</div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="inputAltura" class="control-label">Piso</label>
+                        <input type="text" class="form-control" id="inputPiso" pattern="^[0-9]{1,}" maxlength="8" placeholder="Piso*" ng-model="piso">
+                        <div class="help-block with-errors">0-999</div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="inputAltura" class="control-label">Depto</label>
+                        <input type="text" class="form-control" id="inputDepto" maxlength="8" placeholder="Depto*" ng-model="depto">
+                        <div class="help-block with-errors">0-9-A-z</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLocalidad">Localidad</label>
+                        <select class="form-control" id="inputLocalidad" placeholder="Localidad*" ng-model="localidad">
+                        <option value="" disabled selected>Localidad</option>
+                        <option>Belgrano</option>
+                        <option>Cañitas</option>
+                        <option>Colegiales</option>
+                        <option>Palermo</option>
+                        <option>Villa Crespo</option>
+                        </select>
+                        <div class="help-block with-errors">Belgrano - Cañitas - Nuñez - Colegiales - Palermo - Villa Crespo</div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+            </div>
+            <div class="col-sm-12" *ngIf="status=='pedir'">
             </div>
         </div>
-
-
-        <div class="col-sm-6" *ngIf="nuevo">
-            <input [(ngModel)]='personaTxt' placeholder="first name" />
-
-            <ul *ngIf="personaTxt != ''">
-                <li *ngFor="let persona of personas | searchClient: 'nombre' : personaTxt">
-                    <a href="javascript:void(0);" (click)="setPerson(persona.id)"> 
-                    {{persona.nombre}} {{persona.apellido}}
-                </a>
-            </ul>
-
-            <form (ngSubmit)="submitForm()">
-                <div class="form-group">
-                    <label for="">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="persona.nombre" name="nombre">
-                </div>
-                <div class="form-group">
-                    <label for="">apellido</label>
-                    <input type="text" class="form-control" placeholder="Ejemplo: 'Martinez'" [(ngModel)]="persona.apellido" name="apellido">
-                </div>
-                <div class="form-group">
-                    <label>telefono</label>
-                    <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="persona.telefono" name="telefono">
-                </div>
-            </form>
-        </div>
         <div class="col-sm-6">
+            <br>
             <router-outlet></router-outlet>
         </div>
+
     </div>
 </div>

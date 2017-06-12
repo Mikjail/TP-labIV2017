@@ -14,23 +14,23 @@ export class OrderService {
    
     getAll(){
         console.log("entro a request pedido")
-        return this._http.get(this.url +'/pedido', this.jwt()).map((response: Response) => response.json());
+        return this._http.get(this.url +'/pedidos', this.jwt()).map((response: Response) => response.json());
     }
    getById(id: number) {
-        return this._http.get(this.url +'/pedido/' + id, this.jwt()).map((response: Response) => response.json());
+        return this._http.get(this.url +'/pedidos/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(persona: Persona) {
-        return this._http.post(this.url +'/pedido', persona, this.jwt()).map((response: Response) => response.json());
+        return this._http.post(this.url +'/pedidos', persona, this.jwt()).map((response: Response) => response.json());
     }
 
-    update(persona: Persona) {
-        return this._http.put(this.url +'/pedido', persona, this.jwt()).map((response: Response) => response.json());
-    }
+    // update(persona: Persona) {
+    //     return this._http.put(this.url +'/pedidos', persona, this.jwt()).map((response: Response) => response.json());
+    // }
 
     delete(id: number) {
         console.log(id);
-        return this._http.delete(this.url +'/pedido/' + id, this.jwt()).map((response: Response) => response.json());
+        return this._http.delete(this.url +'/pedidos/' + id, this.jwt()).map((response: Response) => response.json());
     }
     private jwt() {
         // create authorization header with jwt token

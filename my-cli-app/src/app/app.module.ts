@@ -16,7 +16,7 @@ import { LoginComponent } from './login/index';
 
 import { ProductsComponent, DetailProductsComponent, NewProductsComponent, ListProductsComponent } from './home/products/index';
 
-import { OrderComponent, ListOrdersComponent, SearchClient } from './home/orders/index';
+import { OrderComponent, ListOrdersComponent, SearchClientByPhone } from './home/orders/index';
 
 import { ClientComponent, NewClientComponent, DetailClientComponent } from './home/client/index';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
@@ -37,7 +37,7 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
     ClientComponent,
     NewClientComponent,
     DetailClientComponent,
-    SearchClient
+    SearchClientByPhone
     ],
   imports: [AlertModule.forRoot(),
     BrowserModule,

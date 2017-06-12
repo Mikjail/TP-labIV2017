@@ -4,7 +4,6 @@ import { Order } from '../../_models/order';
 
 import { Persona } from '../../_models/persona';
 import { PersonaService } from '../../_services/index';
-import { SearchClient } from './client-search.component'
 import { Router } from '@angular/router';
 
 
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
   selector: 'app-orders-list',
   templateUrl: './orders-list.component.html',
   styleUrls: ['./orders.component.css'],
-  providers: [OrderService, PersonaService, SearchClient]
+  providers: [OrderService]
 })
 
 export class ListOrdersComponent implements OnInit{
@@ -20,8 +19,10 @@ export class ListOrdersComponent implements OnInit{
   personas: Array<Persona>;
   orders: Array<Order>;
   persona: Persona;
-  constructor(private orderService: OrderService, private personaService: PersonaService, private _router: Router) {
+
+  constructor(private orderService: OrderService, private _router: Router) {
     this.personas = new Array<Persona>();
+    this.orders = new Array<Order>();
     this.persona = new Persona();
    }
 
@@ -31,12 +32,19 @@ export class ListOrdersComponent implements OnInit{
 
   getOrders(){
     this.orderService.getAll().subscribe(
-      data => this.orders = data.orders,
+      data => this.setOrders(data.orders),
       error => console.log(error),
       () => console.log("finished")
     );  
   }
-
+  
+  setOrders(orderResponse){
+    console.log(orderResponse);
+    orderResponse.forEach(element => {
+      this.orders.push(new Order(element)); 
+    });
+    console.log(this.orders);
+  }
   setPerson(id){
     console.log(id);
     this.personas.forEach(element => {

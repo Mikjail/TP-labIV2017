@@ -6,3 +6,4 @@ export * from './entidad.service';
 export * from './persona.service';
 export * from './productCategory.service';
 export * from './order.service';
+export * from './cliente.service';

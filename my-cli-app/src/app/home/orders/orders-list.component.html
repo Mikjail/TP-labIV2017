@@ -14,9 +14,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let order of orders;">
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{order.cliente.nombre}}</td>
+                    <td>{{order.cliente.localidad}}</td>
+                    <td>{{order.cliente.telefono}}</td>
                     <td><button class="btn btn-warning" (click)="onSelect(products)">Detalles</button></td>
                 </tr>
             </tbody>

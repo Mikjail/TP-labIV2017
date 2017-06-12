@@ -1,56 +1,71 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchClient }  from './client-search.component';
+import { SearchClientByPhone }  from './client-search.component';
 
-import { Persona } from '../../_models/persona';
-import { PersonaService } from '../../_services/index';
+import { Cliente } from '../../_models/index';
+import { ClienteService } from '../../_services/index';
 import { OrderService } from '../../_services/index';
 import { Order } from '../../_models/order';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
-  providers: [OrderService, PersonaService, SearchClient]
+  providers: [OrderService, ClienteService, SearchClientByPhone]
 })
 
 export class OrderComponent implements OnInit {
-  personas: Array<Persona>;
+  clientes: Array<Cliente>;
   orders: Array<Order>;
-  persona: Persona;
-  nuevo:boolean = false;
+  cliente: Cliente;
+  status:String = "buscar";
 
-  constructor(private orderService: OrderService, private personaService: PersonaService, private _router: Router) {
-    this.personas = new Array<Persona>();
-    this.persona = new Persona();
+  constructor(private orderService: OrderService, private clienteService: ClienteService, private _router: Router) {
+    this.clientes = new Array<Cliente>();
+    this.cliente = new Cliente();
    }
 
   ngOnInit() {
-    this.getPersonas();
+    this.getClientes();
   }
-   getPersonas(){
-    this.personaService.getAll().subscribe(
-      data => this.personas = data.personas,
+   getClientes(){
+    this.clienteService.getAll().subscribe(
+      data => this.clientes = data.clientes,
       error => console.log(error),
       () => console.log("finished")
     );  
   }
 
-  setPerson(id){
+  setClientes(id){
     console.log(id);
-    this.personas.forEach(element => {
+    this.clientes.forEach(element => {
       if(element.id == id){
-        this.persona = element;
+        this.cliente = element;
       }
     });
   }
 
    submitForm(){
-   console.log(this.persona.foto);
-    this.personaService.create(this.persona).subscribe(
+   console.log(this.cliente.foto);
+    this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
       () => console.log("finished")
     )
+  }
+
+  chageStatus(status){
+    switch(status){
+      case "nuevo":
+        this.status= status;
+        break;
+
+      case "pedir":
+        this.status= status;
+        break;
+      
+      default : 
+        this.status = status;
+    }
   }
 
 }

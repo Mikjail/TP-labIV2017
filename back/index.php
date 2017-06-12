@@ -370,7 +370,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		//Modifico el producto
 		try{
 			require_once "clases/persona.php";
-			$respuesta["cantidad"] = Persona::Modificar($producto);
+			$respuesta["cantidad"] = Persona::Modificar($persona);
 			$respuesta["mensaje"] = "Se modificaron ".$respuesta["cantidad"]." personas";
 		}
 		catch (Exception $e){
@@ -382,9 +382,172 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		return $response;
 	});
 
+#CLIENTES
+
+	//Alta clientes
+	$app->post("/clientes", function($request, $response, $args){
+
+
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$cliente = json_decode($request->getBody()); // $producto->nombre = "Mika"
+		
+		
+		//Modifico el producto
+		try{
+			require_once "clases/cliente.php";
+			$respuesta["idAgregado"] = Cliente::Agregar($cliente);
+			$respuesta["mensaje"] = "Se agregó el producto #".$respuesta["idAgregado"];
+		}
+		catch (Exception $e){
+			$respuesta["idAgregado"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+    //Tomar todos los clientes
+	$app->get("/clientes", function($request, $response, $args){
+		//Traigo todos los clientes
+		require_once "clases/cliente.php";
+		$clientes = Cliente::TraerTodosLosClientes();		
+		$respuesta["clientes"] = $clientes;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+	
+	 //Tomar un solo cliente
+	$app->get("/clientes/{id}", function($request, $response, $args){
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$id = json_decode($args["id"]);// $producto->nombre = "Mika"
+		//Modifico el producto
+	
+		//Traigo todos los clientes
+		require_once "clases/cliente.php";
+		$clientes = Cliente::TraerUnaPersonaPorId($id);
+		$respuesta["clientes"] = $clientes;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+	
+    //Borrar producto segun su id.
+	$app->delete("/clientes/{id}", function($request, $response, $args){
+		//Recupero el Id del producto
+		$id = json_decode($args["id"]);
+		//Elimino el producto
+		try{
+			require_once "clases/cliente.php";
+			$respuesta["cantidad"] = Cliente::Eliminar($id);
+			$respuesta["mensaje"] = "Se eliminaron ".$respuesta["cantidad"]." clientes";
+		}
+		catch (Exception $e){
+			$respuesta["nuevoId"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+    //Modificar clientes
+	$app->put("/clientes", function($request, $response, $args){
+		//Recupero los datos del formulario de modificación del producto en un stdClass
+		$cliente = json_decode($request->getBody()); // $producto->nombre = "Mika" 
+		//Modifico el producto
+		try{
+			require_once "clases/cliente.php";
+			$respuesta["cantidad"] = Cliente::Modificar($cliente);
+			$respuesta["mensaje"] = "Se modificaron ".$respuesta["cantidad"]." clientes";
+		}
+		catch (Exception $e){
+			$respuesta["nuevoId"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+
+#PEDIDOS
+	//Alta pedidos
+	$app->post("/pedidos", function($request, $response, $args){
+
+
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$pedido = json_decode($request->getBody()); // $producto->nombre = "Mika"
+		
+		
+		//Modifico el producto
+		try{
+			require_once "clases/pedido.php";
+			$respuesta["idAgregado"] = Pedido::Agregar($pedido);
+			$respuesta["mensaje"] = "Se agregó el producto #".$respuesta["idAgregado"];
+		}
+		catch (Exception $e){
+			$respuesta["idAgregado"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+	 //Tomar un solo pedido
+	$app->get("/pedidos/{id}", function($request, $response, $args){
+		//Recupero los datos del formulario de alta del producto en un stdClass
+		$id = json_decode($args["id"]);// $producto->nombre = "Mika"
+	
+	
+		//Traigo el pedido
+		require_once "clases/pedido.php";
+		$pedidos = Pedido::TraerUnPedidoPorId($id);
+		$respuesta["pedidos"] = $pedidos;
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+
+
+  //Tomar todos los pedidos
+	$app->get("/pedidos", function($request, $response, $args){
+		//Traigo todos los clientes
+		require_once "clases/pedido.php";
+		$pedidos = Pedido::TraerTodosLosPedidos();	
+		$respuesta["orders"] = $pedidos;
+
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;		
+	});
+
+
+	//Eliminar pedido
+	//Borrar producto segun su id.
+	$app->delete("/pedidos/{id}", function($request, $response, $args){
+		//Recupero el Id del producto
+		$id = json_decode($args["id"]);
+		//Elimino el producto
+		try{
+			require_once "clases/pedido.php";
+			$respuesta["cantidad"] = Pedido::Eliminar($id);
+			$respuesta["mensaje"] = "Se eliminaron ".$respuesta["cantidad"]." clientes";
+		}
+		catch (Exception $e){
+			$respuesta["nuevoId"] = "ERROR";
+			$respuesta["error"] = $e;
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
+
+
 #ARCHIVOS
 
-$app->post("/filesPerson", function($request, $response, $args){
+	$app->post("/filesPerson", function($request, $response, $args){
 		if ( !empty( $_FILES ) ) {
 			#-------------------------------------- REDIMENSIONAR IMAGEN A 600x400 --------------------------------#
 			$maxDimW = 600;
