@@ -8,13 +8,6 @@ class Pedido
     public $nombreProducto;
     public $cantidadProducto;
     public $precioProducto;
-	public $nombreCliente;
-	public $calle;
-	public $altura;
-	public $piso;
-	public $depto;
-	public $localidad;
-	public $telefono;
     public $fecha;
     public $total;
 //--------------------------------------------------------------------------------//
@@ -132,17 +125,13 @@ class Pedido
 	public static function TraerTodosLosPedidos(){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT O.id, O.cantidad as cantidadProducto, 
-		P.nombre as nombreProducto, P.precio as precioProducto, 
-		Pe.id_cliente, Pe.fecha, Pe.total, C.nombre as nombreCliente,
-	    C.calle, C.altura, C.piso, C.depto, C.telefono, c.localidad
+		$sql = "SELECT O.id, O.id_pedido, SUM(O.cantidad) as cantidadProducto, 
+		O.id_producto, Pe.id_cliente, Pe.fecha, Pe.total
 				FROM producto_pedido O
-                INNER JOIN productos P
-                ON P.id = O.id_producto
                 INNER JOIN pedidos Pe
                 ON Pe.id = O.id_pedido
-				INNER JOIN clientes C
-				ON Pe.id_cliente = C.id";
+				INNER JOIN clientes C 
+				GROUP BY O.id_producto, O.id_pedido";
 
 		$consulta = $conexion->prepare($sql);
 		$consulta->execute();

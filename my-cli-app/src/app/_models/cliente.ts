@@ -1,3 +1,5 @@
+import { Order, ProductoPedido, Product } from '../_models/index';
+
 export class Cliente {
   id: number
   nombre: string
@@ -7,18 +9,25 @@ export class Cliente {
   localidad : string
   piso :string
   depto:string
-  service: string
+  pedidos: Order[];
   foto:string
   pass:string
   
-  setClientOrder(orderClient){
-    this.id = orderClient.id;
-    this.nombre = orderClient.nombreCliente;
-    this.calle = orderClient.calle;
-    this.altura = orderClient.altura;
-    this.piso = orderClient.piso;
-    this.depto = orderClient.depto;
-    this.telefono = orderClient.telefono;
-    this.localidad = orderClient.localidad;
+  constructor(){
+    this.id= 0;
+    this.nombre= "";
+    this.telefono= "";
+    this.calle = "";
+    this.altura = "";
+    this.localidad= "";
+    this.piso= "";
+    this.depto= "";
+    this.pedidos = new Array();
+    this.foto="";
+    this.pass="";
   }
+  public setClientNewOrder(){
+  }
+
+
 }

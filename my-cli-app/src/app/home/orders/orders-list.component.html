@@ -7,19 +7,67 @@
                 </tr>
                 <tr>
                     <th>Nombre</th>
-                    <th>Localidad</th>
+                    <th>Direccion</th>
                     <th>Telefono</th>
                     <th>Detalles</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let order of orders;">
-                    <td>{{order.cliente.nombre}}</td>
-                    <td>{{order.cliente.localidad}}</td>
-                    <td>{{order.cliente.telefono}}</td>
-                    <td><button class="btn btn-warning" (click)="onSelect(products)">Detalles</button></td>
+            <ng-container *ngFor="let pedido of pedidos;">
+                <tr *ngIf="pedido.cliente == 'undefined'">
+
+                    <td>{{pedido.cliente.nombre}}</td>
+                    <td>{{pedido.cliente.calle}} {{pedido.cliente.altura}}</td>
+                    <td>{{pedido.cliente.telefono}}</td>
+                    <td><button class="btn btn-warning" (click)=onSelect(pedido) data-toggle="modal" data-target="#myModal">Detalles</button></td>
                 </tr>
+            </ng-container>
             </tbody>
         </table>
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Pedido numero {{selectedOrder.id}}</h4>
+            </div>
+            <div class="modal-body">
+                <label for="Nombre">Nombre:</label>
+                <p>{{selectedOrder.cliente.nombre}}</p>
+                <label for="Telefono">Telefono</label>
+                <p>{{selectedOrder.cliente.telefono}}</p>
+                <label for="Direccion">Direccion:</label>
+                <p>{{selectedOrder.cliente.calle}} {{selectedOrder.cliente.altura}} {{selectedOrder.cliente.piso}} {{selectedOrder.cliente.depto}}, {{selectedOrder.cliente.localidad}}</p>
+                <table class="table table-bordered table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let productos of selectedOrder.productos">
+                            <td>{{productos.nombre}}</td>
+                            <td>{{selectedOrder.cantidad}}</td>
+                            <td>{{productos.precio}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h4> TOTAL</h4>
+                            </td>
+                            <td>{{selectedOrder.total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>

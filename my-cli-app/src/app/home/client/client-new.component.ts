@@ -3,34 +3,38 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
-import { PersonaService } from '../../_services/index';
-import { Persona } from '../../_models/persona';
+import { ClienteService } from '../../_services/index';
+import { Cliente } from '../../_models/index';
 const URL = 'http://localhost:8080/filesPerson';
 
 @Component({
   selector: 'app-client-new',
   templateUrl: './client-new.component.html',
   styleUrls: ['./client.component.css'],
-  providers: [ PersonaService ]
+  providers: [ ClienteService ]
 })
 
 export class NewClientComponent implements OnInit{
-  personas: Array<Persona>;
+  clientes: Array<Cliente>;
   nuevo:boolean = false;
-  public personasForm: FormGroup;
-  persona: Persona;
+  public clientesForm: FormGroup;
+  cliente: Cliente;
   sexo: Array<any> = ['m', 'f']
 
   public uploader:FileUploader = new FileUploader({url: URL});
   public hasAnotherDropZoneOver:boolean = false;
 
-  constructor(private _fb:FormBuilder, private personaService: PersonaService, private _router: Router ) {
-    this.personas = new Array<Persona>();
-    this.persona = new Persona();
-     this.personasForm = this._fb.group({
+  constructor(private _fb:FormBuilder, private clienteService: ClienteService, private _router: Router ) {
+    this.clientes = new Array<Cliente>();
+    this.cliente = new Cliente();
+     this.clientesForm = this._fb.group({
       'nombre' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
-      'apellido':  ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'telefono' :  ['',[<any>Validators.required]],
+      'calle' :  ['',[<any>Validators.required]],
+      'altura' :  ['',[<any>Validators.required]],
+      'piso' :  '',
+      'depto' :  '',
+      'localidad' :  ['',[<any>Validators.required]],      
       'pass' :  ['',[<any>Validators.required]]
       
     })
@@ -46,12 +50,13 @@ export class NewClientComponent implements OnInit{
   
 
    submitForm(){
-    this.persona.foto = "img/personas/"+this.uploader.queue[0]._file.name;
-    console.log(this.persona.foto);
-    this.personaService.create(this.persona).subscribe(
+    this.cliente.foto =this.uploader.queue[0]._file.name;
+    console.log(this.cliente.foto);
+
+    this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => console.log("finished")
+      () => this.uploader.uploadAll()
     )
   }
 

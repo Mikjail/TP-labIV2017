@@ -13,6 +13,7 @@ class Cliente
     public $depto;
     public $localidad;
 	// public $sexo;
+	public $foto;
 	public $pass;
 //--------------------------------------------------------------------------------//
 
@@ -136,7 +137,7 @@ class Cliente
 	public static function TraerUnClientePorId($id){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT C.id, C.nombre, C.telefono, C.calle, C.altura, C.piso, C.depto, C.localidad
+		$sql = "SELECT C.id, C.nombre, C.telefono, C.calle, C.altura, C.piso, C.depto, C.localidad, C.foto, C.pass
 				FROM clientes C
 				WHERE C.id = :id";
 
@@ -151,7 +152,7 @@ class Cliente
 	public static function TraerTodosLosClientes(){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT  C.id, C.nombre, C.telefono, C.calle, C.altura, C.piso, C.depto, C.localidad
+		$sql = "SELECT  C.id, C.nombre, C.telefono, C.calle, C.altura, C.piso, C.depto, C.localidad, C.foto, C.pass
 				FROM clientes C";
 
 		$consulta = $conexion->prepare($sql);
@@ -165,8 +166,8 @@ class Cliente
 	public static function Agregar($cliente){
 		$conexion = self::CrearConexion();
 
-		$sql = "INSERT INTO clientes (nombre, telefono, calle, altura, piso, depto, localidad)
-				VALUES ( :nombre, :telefono, :calle, :altura, :piso, :depto, :localidad)";
+		$sql = "INSERT INTO clientes (nombre, telefono, calle, altura, piso, depto, localidad, foto, pass)
+				VALUES ( :nombre, :telefono, :calle, :altura, :piso, :depto, :localidad, :foto, :pass)";
 
 		$consulta = $conexion->prepare($sql);
 		$consulta->bindValue(":nombre", $cliente->nombre, PDO::PARAM_STR);
@@ -175,10 +176,10 @@ class Cliente
 		$consulta->bindValue(":altura", $cliente->altura, PDO::PARAM_STR);
 		$consulta->bindValue(":piso", $cliente->piso, PDO::PARAM_STR);
 		$consulta->bindValue(":depto", $cliente->depto, PDO::PARAM_STR);
-		$consulta->bindValue(":localidad", $cliente->depto, PDO::PARAM_STR);
+		$consulta->bindValue(":localidad", $cliente->localidad, PDO::PARAM_STR);
 		// $consulta->bindValue(":sexo", $cliente->sexo, PDO::PARAM_STR);
-		// $consulta->bindValue(":foto", $cliente->foto, PDO::PARAM_STR);
-		// $consulta->bindValue(":pass", $cliente->pass, PDO::PARAM_STR);
+		$consulta->bindValue(":foto", $cliente->foto, PDO::PARAM_STR);
+		$consulta->bindValue(":pass", $cliente->pass, PDO::PARAM_STR);
 		$consulta->execute();
 
 		$idAgregado = $conexion->lastInsertId();
@@ -189,7 +190,7 @@ class Cliente
 		$conexion = self::CrearConexion();
 
 		$sql = "UPDATE clientes
-				SET nombre = :nombre, telefono = :telefono, calle= :calle, altura =:altura, piso = :piso, depto=:depto, localidad = :localidad
+				SET nombre = :nombre, telefono = :telefono, calle= :calle, altura =:altura, piso = :piso, depto=:depto, localidad = :localidad, foto= :foto, pass= :pass
 				WHERE id = :id"; //, password = :pass
 
 		$consulta = $conexion->prepare($sql);
@@ -200,10 +201,10 @@ class Cliente
 		$consulta->bindValue(":altura", $cliente->altura, PDO::PARAM_STR);
 		$consulta->bindValue(":piso", $cliente->piso, PDO::PARAM_STR);
 		$consulta->bindValue(":depto", $cliente->depto, PDO::PARAM_STR);
-		$consulta->bindValue(":localidad", $cliente->depto, PDO::PARAM_STR);
+		$consulta->bindValue(":localidad", $cliente->localidad, PDO::PARAM_STR);
 		// $consulta->bindValue(":sexo", $cliente->sexo, PDO::PARAM_STR);
-		// $consulta->bindValue(":foto", $cliente->foto, PDO::PARAM_STR);
-		// $consulta->bindValue(":pass", $cliente->password, PDO::PARAM_STR);
+		$consulta->bindValue(":foto", $cliente->foto, PDO::PARAM_STR);
+		$consulta->bindValue(":pass", $cliente->password, PDO::PARAM_STR);
 		$consulta->bindValue(":id", $cliente->id, PDO::PARAM_INT);
 		$consulta->execute();
 

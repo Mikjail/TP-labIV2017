@@ -1,43 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { PersonaService } from '../../_services/index';
-import { Persona } from '../../_models/persona';
+import { ClienteService } from '../../_services/index';
+import { Cliente } from '../../_models/index';
 
 @Component({
   selector: 'app-client-detail',
   templateUrl: './client-detail.component.html',
   styleUrls: ['./client.component.css'],
-  providers: [PersonaService]
+  providers: [ClienteService]
 })
 
 export class DetailClientComponent implements OnInit{
-  personas: Array<Persona>;
+  clientes: Array<Cliente>;
   nuevo:boolean = false;
-  persona: Persona;
+  cliente: Cliente;
   
-  constructor( private personaService: PersonaService, private _router: Router ) {
-    this.personas = new Array<Persona>();
+  constructor( private clienteService: ClienteService, private _router: Router ) {
+    this.clientes = new Array<Cliente>();
   }
    ngOnInit() {
     this.getPersonas();
   }
 
   getPersonas(){
-    this.personaService.getAll().subscribe(
-      data => this.personas = data.personas,
+    this.clienteService.getAll().subscribe(
+      data => this.clientes = data.clientes,
       error => console.log(error),
       () => this.getFotos(),
     );  
   }
   
   getFotos(){
-    this.personas.forEach(persona => {
+    this.clientes.forEach(persona => {
         persona.foto = "assets/fotos/"+persona.foto;
     });
   }
   borrar(id){
-     this.personaService.delete(id).subscribe(
+     this.clienteService.delete(id).subscribe(
       data => this.getPersonas(),
       error => console.log("ERROR"),
       () => this.nuevo=false

@@ -18,10 +18,11 @@ export class OrderComponent implements OnInit {
   orders: Array<Order>;
   cliente: Cliente;
   status:String = "buscar";
-
+  selectedClient: Cliente;
   constructor(private orderService: OrderService, private clienteService: ClienteService, private _router: Router) {
     this.clientes = new Array<Cliente>();
     this.cliente = new Cliente();
+    this.selectedClient = new Cliente();
    }
 
   ngOnInit() {
@@ -29,10 +30,14 @@ export class OrderComponent implements OnInit {
   }
    getClientes(){
     this.clienteService.getAll().subscribe(
-      data => this.clientes = data.clientes,
+      data => this.clientes=data.clientes,
       error => console.log(error),
       () => console.log("finished")
     );  
+  }
+
+  onSelect(cliente:Cliente){
+    this.selectedClient = cliente;
   }
 
   setClientes(id){

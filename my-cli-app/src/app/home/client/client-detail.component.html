@@ -9,8 +9,8 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
                 <th>telefono</th>
+                <th>Direccion</th>
                 <!--<th>Sexo</th>-->
                 <th>Pass</th>
                 <th>Foto</th>
@@ -18,16 +18,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let persona of personas;">
-                <td>{{persona.id}}</td>
-                <td>{{persona.nombre}}</td>
-                <td>{{persona.apellido}}</td>
-                <td>{{persona.telefono}}</td>
-                <!--<td *ngIf="persona.sexo == 'f'" style="background-color:#ff5e5e">{{persona.sexo}}</td>
-                <td *ngIf="persona.sexo == 'm'" style="background-color:#71ef6d">{{persona.sexo}}</td>-->
-                <td>{{persona.pass}}</td>
-                <td><img src={{persona.foto}} alt="" style="width:50px; height:50px;"></td>
-                <td><button class="btn btn-warning" (click)="borrar(persona.id)">Borrar</button></td>
+            <tr *ngFor="let cliente of clientes;">
+                <td>{{cliente.id}}</td>
+                <td>{{cliente.nombre}}</td>
+                <td>{{cliente.telefono}}</td>
+                <td>
+                    {{cliente.calle}} {{cliente.altura}} {{cliente.piso}} {{cliente.depto}}, {{cliente.localidad}}
+                </td>
+                <!--<td *ngIf="cliente.sexo == 'f'" style="background-color:#ff5e5e">{{cliente.sexo}}</td>
+                <td *ngIf="cliente.sexo == 'm'" style="background-color:#71ef6d">{{cliente.sexo}}</td>-->
+                <td>{{cliente.pass}}</td>
+                <td><img src={{cliente.foto}} alt="" style="width:50px; height:50px;"></td>
+                <td><button class="btn btn-warning" (click)="borrar(cliente.id)">Borrar</button></td>
             </tr>
         </tbody>
     </table>

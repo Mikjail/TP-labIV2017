@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../_services/index';
-import { Order } from '../../_models/order';
+import { OrderService, ProductService, ClienteService } from '../../_services/index';
+import { Order, Cliente, Product, ProductoPedido } from '../../_models/index';
 
-import { Persona } from '../../_models/persona';
-import { PersonaService } from '../../_services/index';
+import {  } from '../../_services/index';
 import { Router } from '@angular/router';
 
 
@@ -11,52 +10,102 @@ import { Router } from '@angular/router';
   selector: 'app-orders-list',
   templateUrl: './orders-list.component.html',
   styleUrls: ['./orders.component.css'],
-  providers: [OrderService]
+  providers: [OrderService, ClienteService, ProductService]
 })
 
 export class ListOrdersComponent implements OnInit{
 
-  personas: Array<Persona>;
-  orders: Array<Order>;
-  persona: Persona;
+  clientes: Array<Cliente>;
+  products: Array<Product>;
+  productoPedido : Array<ProductoPedido>;
+  cliente: Cliente;
+  pedidos : Array<Order>;
+  selectedOrder: Order;
 
-  constructor(private orderService: OrderService, private _router: Router) {
-    this.personas = new Array<Persona>();
-    this.orders = new Array<Order>();
-    this.persona = new Persona();
+  constructor(private orderService: OrderService,  private clienteService: ClienteService, private productServices: ProductService) {
+    this.cliente = new Cliente();
+    this.productoPedido = new Array<ProductoPedido>();
+    this.products = new Array<Product>();
+    this.clientes = new Array<Cliente>();
+    this.pedidos = new Array<Order>();    
+    this.selectedOrder = new Order();
    }
 
   ngOnInit() {
     this.getOrders();
   }
 
-  getOrders(){
+  setProductoPedido(productoPedido:Array<ProductoPedido>){
+      this.productoPedido= productoPedido;
+      console.log(this.productoPedido);
+
+  }
+  setProducts(productos: Array<Product>){
+      this.products= productos;
+        console.log(this.products);
+  }
+
+  setClients(clientes: Array<Cliente>){
+   this.clientes = clientes;
+    console.log(this.clientes);
+  }  
+  
+  
+  setOrders(){
+    this.productoPedido.forEach(element => {
+          let idPedidos= new Array<number>();
+          if(idPedidos.indexOf(element.id_pedido)!= -1){
+            this.setFromExistingPedido(element);
+          } 
+          else{
+            this.setNewPedido(element);
+          } 
+    });
+    console.log(this.pedidos);
+  }
+
+  setNewPedido(productoP){
+      let nuevoPedido= new Order();
+      nuevoPedido.setPedido(productoP, this.clientes, this.products);
+      this.pedidos.push(nuevoPedido); 
+  }
+  
+  setFromExistingPedido(productoP:ProductoPedido){
+        this.pedidos.forEach(element => {
+          if(element.id == productoP.id_pedido){
+             element.setProducto(productoP, this.products);
+          }
+        });
+  }
+
+   getOrders(){
+    let def = 
     this.orderService.getAll().subscribe(
-      data => this.setOrders(data.orders),
+      data => this.setProductoPedido(data.orders),
       error => console.log(error),
-      () => console.log("finished")
+      () => this.getProducts()
     );  
   }
-  
-  setOrders(orderResponse){
-    console.log(orderResponse);
-    orderResponse.forEach(element => {
-      this.orders.push(new Order(element)); 
-    });
-    console.log(this.orders);
-  }
-  setPerson(id){
-    console.log(id);
-    this.personas.forEach(element => {
-      if(element.id == id){
-        this.persona = element;
-      }
-    });
+
+  getProducts(){
+    this.productServices.getAll().subscribe(
+      data =>  this.setProducts(data.productos),
+      error => console.log(error),
+      () => this.getCliente()
+    );  
   }
 
-  onSelect(product:Order){
-    this._router.navigate(['../home/products/detailProduct',{ id: product.id}]);
+  getCliente(){
+   this.clienteService.getAll().subscribe(
+     data => this.setClients(data.clientes),
+     error => console.warn(error),
+     () => this.setOrders()
+   );
+  }
+  
+  onSelect(pedido:Order){
+    console.log("onSelect");
+    this.selectedOrder = pedido;
   }
 
-  
 }

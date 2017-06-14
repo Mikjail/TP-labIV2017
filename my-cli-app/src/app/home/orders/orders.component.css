@@ -9,3 +9,9 @@ ul li {
 a {
     text-decoration: none;
 }
+
+table,
+td,
+th {
+    text-align: center;
+}

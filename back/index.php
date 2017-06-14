@@ -576,7 +576,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		    $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
 		    // $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 		    //$uploadPath = "../". DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-		    $uploadPath = 'img\personas' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+		    $uploadPath = 'C:\xampp\htdocs\proyectos\plusvibestudio\TP-labIV2017\my-cli-app\src\assets\fotos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 		    move_uploaded_file( $tempPath, $uploadPath );
 		    $respuesta["mensaje"] = 'Archivo Cargado!';
 		} else {

@@ -1,98 +1,122 @@
-<a routerLink="../" routerLinkActive="active-link" class="pull-right btn btn-success">Volver</a>
-<form [formGroup]="personasForm" novalidate (ngSubmit)="submitForm(personasForm.valid)">
-    <div class="form-group">
-        <label for="">Nombre</label>
-        <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="persona.nombre" formControlName="nombre">
-        <small [hidden]="personasForm.controls.nombre.valid || (personasForm.controls.nombre.pristine && !submitted)" class="text-danger">
+<div class="row">
+    <a routerLink="../" routerLinkActive="active-link" class="pull-right btn btn-success">Volver</a>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form [formGroup]="clientesForm" novalidate (ngSubmit)="submitForm(clientesForm.valid)">
+            <div class="form-group">
+                <label for="">Nombre</label>
+                <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="cliente.nombre" formControlName="nombre">
+                <small [hidden]="clientesForm.controls.nombre.valid || (clientesForm.controls.nombre.pristine && !submitted)" class="text-danger">
             El nombre del producto es requerido (minimo 5 caracteres).
           </small>
-        <!--<pre class="margin-20">{{ personasForm.controls.name.errors | json }}</pre>-->
-    </div>
-    <div class="form-group">
-        <label for="">apellido</label>
-        <input type="text" class="form-control" placeholder="Ejemplo: 'Martinez'" [(ngModel)]="persona.apellido" formControlName="apellido">
-        <small [hidden]="personasForm.controls.apellido.valid || (personasForm.controls.apellido.pristine && !submitted)" class="text-danger">
-            El nombre del producto es requerido (minimo 5 caracteres).
-          </small>
-        <!--<pre class="margin-20">{{ personasForm.controls.name.errors | json }}</pre>-->
-    </div>
-    <div class="form-group">
-        <label>telefono</label>
-        <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="persona.telefono" formControlName="telefono">
-        <small [hidden]="personasForm.controls.telefono.valid || (personasForm.controls.telefono.pristine && !submitted)" class="text-danger">
+                <!--<pre class="margin-20">{{ clientesForm.controls.name.errors | json }}</pre>-->
+            </div>
+            <div class="form-group">
+                <label for="inputCalle" class="control-label">Calle</label>
+                <input type="text" class="form-control" id="inputCalle" pattern="([A-z-ñ\s]){1,}$" maxlength="30" placeholder="Calle*" [(ngModel)]="cliente.calle" formControlName="calle">
+                <div class="help-block with-errors">A-z</div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label for="inputAltura" class="control-label">Altura</label>
+                <input type="text" class="form-control" id="inputAltura" pattern="^[0-9]{1,}" maxlength="12" placeholder="Altura*" [(ngModel)]="cliente.altura" formControlName="altura">
+                <div class="help-block with-errors">0-99999</div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label for="inputAltura" class="control-label">Piso</label>
+                <input type="text" class="form-control" id="inputPiso" pattern="^[0-9]{1,}" maxlength="8" placeholder="Piso*" [(ngModel)]="cliente.piso" formControlName="piso">
+                <div class="help-block with-errors">0-999</div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label for="inputAltura" class="control-label">Depto</label>
+                <input type="text" class="form-control" id="inputDepto" maxlength="8" placeholder="Depto*" [(ngModel)]="cliente.depto" formControlName="depto">
+                <div class="help-block with-errors">0-9-A-z</div>
+            </div>
+            <div class="form-group">
+                <label for="inputLocalidad">Localidad</label>
+                <select class="form-control" id="inputLocalidad" placeholder="Localidad*" [(ngModel)]="cliente.localidad" formControlName="localidad">
+                        <option value="" disabled selected>Localidad</option>
+                        <option>Belgrano</option>
+                        <option>Cañitas</option>
+                        <option>Colegiales</option>
+                        <option>Palermo</option>
+                        <option>Villa Crespo</option>
+                        </select>
+                <div class="help-block with-errors">Belgrano - Cañitas - Nuñez - Colegiales - Palermo - Villa Crespo</div>
+            </div>
+            <div class="form-group">
+                <label>telefono</label>
+                <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="cliente.telefono" formControlName="telefono">
+                <small [hidden]="clientesForm.controls.telefono.valid || (clientesForm.controls.telefono.pristine && !submitted)" class="text-danger">
             EL campo cantidad del producto es requerido (Solo numeros 0-9).
           </small>
-    </div>
-    <!--<div class="form-group">
+            </div>
+            <!--<div class="form-group">
         <label>sexo</label>
-        <input class="form-control" type="text" placeholder="Ejemplo: 'Masculino'" [(ngModel)]="persona.sexo" formControlName="sexo">
-        <small [hidden]="personasForm.controls.sexo.valid || (personasForm.controls.sexo.pristine && !submitted)" class="text-danger">
+        <input class="form-control" type="text" placeholder="Ejemplo: 'Masculino'" [(ngModel)]="cliente.sexo" formControlName="sexo">
+        <small [hidden]="clientesForm.controls.sexo.valid || (clientesForm.controls.sexo.pristine && !submitted)" class="text-danger">
             EL campo cantidad del producto es requerido (Solo numeros 0-9).
           </small>
     </div>-->
-    <div class="form-group">
-        <label>pass</label>
-        <input class="form-control" type="password" placeholder="contrasena" [(ngModel)]="persona.pass" formControlName="pass">
-        <small [hidden]="personasForm.controls.pass.valid || (personasForm.controls.pass.pristine && !submitted)" class="text-danger">
+            <div class="form-group">
+                <label>pass</label>
+                <input class="form-control" type="password" placeholder="contrasena" [(ngModel)]="cliente.pass" formControlName="pass">
+                <small [hidden]="clientesForm.controls.pass.valid || (clientesForm.controls.pass.pristine && !submitted)" class="text-danger">
             EL campo cantidad del producto es requerido (Solo numeros 0-9).
           </small>
-    </div>
-    <div class="form-group">
-        <h3>Elija una Imagen </h3>
+            </div>
+            <div class="form-group">
+                <h3>Elija una Imagen </h3>
 
-        <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}" (fileOver)="fileOverAnother($event)" [uploader]="uploader" class="well my-drop-zone">
-            Drop zone </div>
-
-        Multiple
-        <input type="file" ng2FileSelect [uploader]="uploader" />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th width="50%">Name</th>
-                    <th>Size</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of uploader.queue">
-                    <td><strong>{{ item?.file?.name }}</strong></td>
-                    <td>{{ item.file.size}} MB</td>
-                    <td *ngIf="uploader.isHTML5">
-                        <div class="progress" style="margin-bottom: 0;">
-                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-                        </div>
-                    </td>
-                    <td nowrap>
-                        <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}" (fileOver)="fileOverAnother($event)" [uploader]="uploader" class="well my-drop-zone">
+                    Drop zone </div>
+                <input type="file" ng2FileSelect [uploader]="uploader" />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%">Name</th>
+                            <th>Size</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of uploader.queue">
+                            <td><strong>{{ item?.file?.name }}</strong></td>
+                            <td>{{ item.file.size}} MB</td>
+                            <td *ngIf="uploader.isHTML5">
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td nowrap>
+                                <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
                             <span class="glyphicon glyphicon-trash"></span> Remove
                         </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="form-group">
-            <div>
-                <div>
-                    Queue progress:
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                    <span class="glyphicon glyphicon-upload"></span> Upload all
-                </button>
-                <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <div>
+                        <div>
+                            Queue progress:
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                     <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
                 </button>
-                <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                        <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                     <span class="glyphicon glyphicon-trash"></span> Remove all
                 </button>
-            </div>
+                    </div>
 
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success" [disabled]="!personasForm.valid">Submit</button>
-        </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" [disabled]="!clientesForm.valid">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>

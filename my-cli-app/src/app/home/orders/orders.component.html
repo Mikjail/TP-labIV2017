@@ -7,7 +7,7 @@
                 <button class="btn btn-primary pull-right" (click)="status = 'nuevo'">Nuevo</button>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Telefono</span>
-                    <input type="number" class="form-control" [(ngModel)]='telfTxt' placeholder="Telefono" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" [(ngModel)]='telfTxt' placeholder="Telefono" aria-describedby="basic-addon1">
                 </div>
 
                 <table *ngIf="telfTxt != ''" class="table table-bordered table-condensed table-hover">
@@ -19,13 +19,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let persona of clientes | searchClientByPhone: 'telefono' : telfTxt">
+                        <tr *ngFor="let cliente of clientes | searchClientByPhone: 'telefono' : telfTxt">
                             <td>
-                                {{persona.nombre}} {{persona.apellido}}
+                                <a href="" (click)=onSelect(cliente) data-toggle="modal" data-target="#myModalCliente">{{cliente.nombre}}</a>
 
                             </td>
                             <td>
-                                {{persona.telefono}}
+                                {{cliente.telefono}}
                             </td>
                         </tr>
                     </tbody>
@@ -39,11 +39,11 @@
                 <form (ngSubmit)="submitForm()">
                     <div class="form-group">
                         <label for="">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="persona.nombre" name="nombre">
+                        <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="cliente.nombre" name="nombre">
                     </div>
                     <div class="form-group">
                         <label>Telefono</label>
-                        <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="persona.telefono" name="telefono">
+                        <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="cliente.telefono" name="telefono">
                     </div>
                     <div class="form-group">
                         <label for="inputCalle" class="control-label">Calle</label>
@@ -86,6 +86,140 @@
         <div class="col-sm-6">
             <br>
             <router-outlet></router-outlet>
+        </div>
+
+    </div>
+</div>
+<div id="myModalCliente" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Pedido</h4>
+            </div>
+            <div class="modal-body">
+                <label for="Nombre">Nombre:</label>
+                <p>{{selectedClient.nombre}}</p>
+                <label for="Telefono">Telefono</label>
+                <p>{{selectedClient.telefono}}</p>
+                <label for="Direccion">Direccion:</label>
+                <p>{{selectedClient.calle}} {{selectedClient.altura}} {{selectedClient.piso}} {{selectedClient.depto}}, {{selectedClient.localidad}}</p>
+
+                <!--<div class="table-responsive">
+                    <table class="table table-hover table-condensed table-bordered ">
+                        <thead>
+                            <th class="text-center">Arepa <span ng-if="totalPedidoArepas() != 0">{{ totalPedidoArepas() | currency}} </span>
+                            </th>
+                            <th class="text-center">
+                                <img class="pull-left" src="img/icon/trigoMaiz/btnTrigoNegro.png" alt="IconoTrigo">Trigo
+                            </th>
+                            <th class="text-center">
+                                <img class="pull-left" src="img/icon/trigoMaiz/btnMaizNegro.png" alt="IconoMaiz"> Maiz
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="producto in productos.Slide1">
+                                <td>{{producto.nombre}}</td>
+                                <td>
+                                    <select name="singleSelect" ng-model="producto.cantidadTrigo" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                        </select>
+                                </td>
+                                <td>
+                                    <select name="singleSelect" ng-model="producto.cantidadMaiz" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                        </select>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="producto in productos.Slide2">
+                                <td>{{producto.nombre}}</td>
+                                <td>
+                                    <select name="singleSelect" ng-model="producto.cantidadTrigo" ng-options="i for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                </select>
+                                </td>
+                                <td>
+                                    <select name="singleSelect" ng-model="producto.cantidadMaiz" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                        </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed table-bordered ">
+                        <thead>
+                            <th class="text-center">Tequeño <span ng-if="totalPedidoTequenos() != 0">{{ totalPedidoTequenos() | currency}} </span>
+                            </th>
+                            <th class="text-center">
+                                Cantidad
+                            </th>
+                            <th class="text-center">
+                                Tipo
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="producto in productos.Slide3">
+                                <td>{{producto.nombre}}</td>
+                                <td>
+                                    <select name="singleSelect" ng-model="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                        </select>
+                                </td>
+                                <td><select ng-model="producto.tipo">
+                        <option value="" selected>Frito</option>
+                        <option>Congelado</option>
+                        </select>
+                                    </select>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed table-bordered ">
+                        <thead>
+                            <th class="text-center">Empanadas<span ng-if="totalPedidoEmpanadas() != 0">{{ totalPedidoEmpanadas() | currency}} </span>
+                            </th>
+                            <th class="text-center">
+                                Cantidad
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="producto in productos.Slide4">
+                                <td>{{producto.nombre}}</td>
+                                <td>
+                                    <select name="singleSelect" ng-model="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                        </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+                <!--<div class="table-responsive">
+            <table class="table table-hover table-condensed table-bordered ">
+                <thead>
+                    <th class="text-center">Empanadas<span ng-if="totalPedidoEmpanadas() != 0">{{ totalPedidoEmpanadas() | currency}} </span>
+                    </th>
+                    <th class="text-center">
+                        Cantidad
+                    </th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="producto in productos.Slide4">
+                        <td>{{producto.nombre}}</td>
+                        <td>
+                            <select name="singleSelect" ng-model="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+                        </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>-->
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
 
     </div>
