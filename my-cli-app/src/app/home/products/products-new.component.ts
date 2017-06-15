@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Product } from '../../_models/product';
 import { ProductService, ProductCategoryService } from  '../../_services/index';
+const URL = 'http://localhost:8080/filesProduct';
+
 @Component({
   selector: 'app-products-new',
   templateUrl: './products-new.component.html',
@@ -11,10 +14,14 @@ import { ProductService, ProductCategoryService } from  '../../_services/index';
   providers: [ProductService, ProductCategoryService]
 })
 
+
 export class NewProductsComponent implements OnInit{
   
     public productsForm: FormGroup;
     public tipos =[];
+    public uploader:FileUploader = new FileUploader({url: URL});
+    public hasAnotherDropZoneOver:boolean = false;
+
   
 constructor( private _router: Router, private _fb:FormBuilder, private productServices: ProductService, private productCategoryService: ProductCategoryService) {
     this.getProductCategory();
@@ -22,7 +29,7 @@ constructor( private _router: Router, private _fb:FormBuilder, private productSe
   
   ngOnInit() {
       this.productsForm = this._fb.group({
-      'tipoProducto': ['',[<any>Validators.required]],
+      'id_tipoProducto': ['',[<any>Validators.required]],
       'nombre' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'descripcion':  ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'ingredientes' :  ['',[<any>Validators.required]],
@@ -33,12 +40,18 @@ constructor( private _router: Router, private _fb:FormBuilder, private productSe
 
   }
 
-  submitForm(producto:Product){
+public fileOverAnother(e:any):void {
+    this.hasAnotherDropZoneOver = e;
+  }
+  
 
+  submitForm(producto:Product){
+    producto.img =this.uploader.queue[0]._file.name;
+    console.log(producto.img);
     this.productServices.create(producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => this._router.navigate(['../home/products/'])
+      () => this.uploader.uploadAll()
     )
     console.log(producto);
 

@@ -213,7 +213,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 	$app->post("/productos", function($request, $response, $args){
 
 		//Recupero los datos del formulario de alta del producto en un stdClass
-		$persona = json_decode($request->getBody()); // $producto->nombre = "Mika"
+		$producto = json_decode($request->getBody()); // $producto->nombre = "Mika"
 		//Modifico el producto
 		try{
 			require_once "clases/producto.php";
@@ -587,6 +587,45 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		return $response;
 	});
 
+	$app->post("/filesProduct", function($request, $response, $args){
+		if ( !empty( $_FILES ) ) {
+			#-------------------------------------- REDIMENSIONAR IMAGEN A 600x400 --------------------------------#
+			// $maxDimW = 600;
+			// $maxDimH = 400;
+			// list($width, $height, $type, $attr) = getimagesize( $_FILES['file']['tmp_name'] );
+			// // if ( $width > $maxDimW || $height > $maxDimH ) {
+			//     $target_filename = $_FILES['file']['tmp_name'];
+			//     $fn = $_FILES['file']['tmp_name'];
+			 
+			//     $size = getimagesize( $fn );
+			//     $ratio = $size[0]/$size[1]; // width/height
+			//     // if( $ratio > 1) {
+			//     //     $width = $maxDimW;
+			//     //     $height = $maxDimH/$ratio;
+			//     // } else {
+			//     //     $width = $maxDimW*$ratio;
+			//     //     $height = $maxDimH;
+			//     // }
+			// 	$width = $maxDimW;
+			// 	$height = $maxDimH;
+			//     $src = imagecreatefromstring(file_get_contents($fn));
+			//     $dst = imagecreatetruecolor( $width, $height );
+			//     imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1] );
+			//     imagejpeg($dst, $target_filename); // adjust format as needed
+			#-------------------------------------------------------------------------------------------------------#
+		    $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
+		    // $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+		    //$uploadPath = "../". DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+		    $uploadPath = 'C:\xampp\htdocs\proyectos\plusvibestudio\TP-labIV2017\my-cli-app\src\assets\productos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+		    move_uploaded_file( $tempPath, $uploadPath );
+		    $respuesta["mensaje"] = 'Archivo Cargado!';
+		} else {
+		    $respuesta["error"] = 'No se cargo el archivo';
+		}
+		//Escribo la respuesta en el body del response y lo retorno
+		$response->getBody()->write(json_encode($respuesta));
+		return $response;
+	});
 #TIPOPRODUCTOS
 	//Alta Personas
 	$app->post("/tipoproducto", function($request, $response, $args){

@@ -134,6 +134,11 @@ public static function TraerUnProductoPorId($id){
 	public static function Agregar($producto){
 		$conexion = self::CrearConexion();
 
+		
+		var_dump( $producto);
+
+		var_dump( $producto->id_tipoProducto);
+
 		$sql = "INSERT INTO productos (nombre, descripcion, ingredientes,
 		 img, id_tipoProducto, precio, cantidad)
 				VALUES (:nombre, :descripcion, :ingredientes,
@@ -145,9 +150,9 @@ public static function TraerUnProductoPorId($id){
 		$consulta->bindValue(":descripcion", $producto->descripcion, PDO::PARAM_STR);
 		$consulta->bindValue(":ingredientes", $producto->ingredientes, PDO::PARAM_STR);
         $consulta->bindValue(":img", $producto->img, PDO::PARAM_STR);
-		$consulta->bindValue(":id_tipoProducto", $producto->id_tipoProducto, PDO::PARAM_STR);
+		$consulta->bindValue(":id_tipoProducto", $producto->id_tipoProducto, PDO::PARAM_INT);
 		$consulta->bindValue(":precio", $producto->precio, PDO::PARAM_STR);
-    	$consulta->bindValue(":cantidad", $producto->cantidad, PDO::PARAM_STR);
+    	$consulta->bindValue(":cantidad", $producto->cantidad, PDO::PARAM_INT);
     	// $consulta->bindValue(":total", $producto->total, PDO::PARAM_STR);
         $consulta->execute();
 

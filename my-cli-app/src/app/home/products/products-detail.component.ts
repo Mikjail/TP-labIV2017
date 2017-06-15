@@ -7,7 +7,7 @@ import { Product } from '../../_models/product';
 
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ActivatedRoute, Params, Router} from '@angular/router';
-const URL = 'http://localhost:8080';
+const URL = 'http://localhost:8080/filesProduct';
 
 @Component({
   selector: 'app-products-detail',
@@ -63,7 +63,8 @@ export class DetailProductsComponent implements OnInit{
       console.log(this.selectOption);
   },
     error => { console.log(error)},
-      () => { console.log("finished") });
+      () => { console.log("finished") 
+    });
   }
 
   public fileOverAnother(e:any):void {
@@ -72,10 +73,12 @@ export class DetailProductsComponent implements OnInit{
   
  
   submitForm(){
+    this.producto.img ="assets/productos/"+this.uploader.queue[0]._file.name;
+    console.log(this.producto.img);
     this.productServices.update(this.producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => this._routerNav.navigate(['../home/products/'])
+      () => this.uploader.uploadAll()
     )
   }
   

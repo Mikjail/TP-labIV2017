@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchClientByPhone }  from './client-search.component';
 
-import { Cliente } from '../../_models/index';
-import { ClienteService } from '../../_services/index';
-import { OrderService } from '../../_services/index';
-import { Order } from '../../_models/order';
+import { Cliente, Order, Product } from '../../_models/index';
+import { ClienteService, OrderService, ProductService } from '../../_services/index';
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
-  providers: [OrderService, ClienteService, SearchClientByPhone]
+  providers: [OrderService, ClienteService, SearchClientByPhone, ProductService]
 })
 
 export class OrderComponent implements OnInit {
@@ -19,7 +18,8 @@ export class OrderComponent implements OnInit {
   cliente: Cliente;
   status:String = "buscar";
   selectedClient: Cliente;
-  constructor(private orderService: OrderService, private clienteService: ClienteService, private _router: Router) {
+  productos : Array<Product>;
+  constructor(private orderService: OrderService, private clienteService: ClienteService, private productServices: ProductService, private _router: Router) {
     this.clientes = new Array<Cliente>();
     this.cliente = new Cliente();
     this.selectedClient = new Cliente();
@@ -31,6 +31,14 @@ export class OrderComponent implements OnInit {
    getClientes(){
     this.clienteService.getAll().subscribe(
       data => this.clientes=data.clientes,
+      error => console.log(error),
+      () => this.getProducts()
+    );  
+  }
+
+  getProducts(){
+    this.productServices.getAll().subscribe(
+      data => this.productos = data.productos,
       error => console.log(error),
       () => console.log("finished")
     );  
@@ -50,7 +58,6 @@ export class OrderComponent implements OnInit {
   }
 
    submitForm(){
-   console.log(this.cliente.foto);
     this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),

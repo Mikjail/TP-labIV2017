@@ -6,7 +6,7 @@
         <form [formGroup]="productsForm" novalidate (ngSubmit)="submitForm(productsForm.value, productsForm.valid)">
             <div class="form-group">
                 <label>Tipo de Producto</label>
-                <select class="form-control" formControlName="tipoProducto">
+                <select class="form-control" formControlName="id_tipoProducto">
                 <option disabled selected value> -- Seleccione tipo Producto-- </option>
                  <option *ngFor="let item of tipos;" [ngValue]="item.id">{{item.nombre}}</option>
                 </select>
@@ -49,11 +49,52 @@
           </small>
             </div>
             <div class="form-group">
-                <label>Img Src</label>
-                <input class="form-control" type="text" placeholder="Ejemplo: 'img/ejemplo.jpg'" formControlName="img">
-                <small [hidden]="productsForm.controls.img.valid || (productsForm.controls.img.pristine && !submitted)" class="text-danger">
-            EL campo precio del producto es requerido (Solo numeros 0-9).
-          </small>
+                <h3>Elija una Imagen </h3>
+
+                <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}" (fileOver)="fileOverAnother($event)" [uploader]="uploader" class="well my-drop-zone">
+                    Drop zone </div>
+                <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+            </div>
+            <div>
+                Queue progress:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50%">Name</th>
+                        <th>Size</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uploader.queue">
+                        <td><strong>{{ item?.file?.name }}</strong></td>
+                        <td>{{ item.file.size}} MB</td>
+                        <td *ngIf="uploader.isHTML5">
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                            </div>
+                        </td>
+                        <td nowrap>
+                            <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <div>
+                    <div>
+                        Queue progress:
+                        <div class="progress" style="">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Submit</button>

@@ -21,7 +21,7 @@
             <label for="Editar">Click para Editar datos</label>
             <input type="checkbox" [(ngModel)]="editarNow">
         </div>
-        <form [formGroup]="productsForm" (ngSubmit)="submitForm(productsForm.valid)">
+        <form [formGroup]="productsForm" (ngSubmit)="submitForm(productsForm.value, productsForm.valid)">
 
             <img src={{producto.img}} alt="" class="img-responsive">
             <div class="form-group">
@@ -69,17 +69,10 @@
           </small>
             </div>
             <div class="form-group">
-                <!--<label>Img Src</label>
-                <input class="form-control" type="text" placeholder="Ejemplo: 'img/ejemplo.jpg'" formControlName="img" [(ngModel)]="producto.img" [readonly]="!editarNow">
-                <small [hidden]="productsForm.controls.img.valid || (productsForm.controls.img.pristine && !submitted)" class="text-danger">
-            EL campo precio del producto es requerido (Solo numeros 0-9).
-          </small>-->
                 <h3>Elija una Imagen </h3>
 
                 <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}" (fileOver)="fileOverAnother($event)" [uploader]="uploader" class="well my-drop-zone">
                     Drop zone </div>
-
-                Multiple
                 <input type="file" ng2FileSelect [uploader]="uploader" multiple />
             </div>
             <div>
@@ -121,21 +114,10 @@
                             <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                         </div>
                     </div>
-
-                    <!--<button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                    <span class="glyphicon glyphicon-upload"></span> Upload all
-                </button>
-                    <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-                </button>
-                    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-                    <span class="glyphicon glyphicon-trash"></span> Remove all
-                </button>-->
                 </div>
-
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success" [disabled]="!productsForm.valid">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </div>
         </form>
     </div>
