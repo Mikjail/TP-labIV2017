@@ -5,24 +5,38 @@ import { ProductoPedido } from '../_models/index';
 
 export class Order{
     id: number;
+    id_cliente;
     cliente : Cliente;
     productos : Array<Product>;
-    cantidad: number;
-    fecha : Date;
+    cantidad: string;
+    fecha : any;
     total: number;
     
     constructor(){
         this.id=0;
         this.cliente = new Cliente();
         this.productos = new Array<Product>();
-        this.cantidad = 0;
-        this.fecha = new Date();
+        this.cantidad = "";
+        this.fecha = "";
         this.total = 0;
+        this.id_cliente = "";
     }
-
+    
+    
+    public totalCompra(productos:Array<Product>){
+        this.total=0;
+        this.productos = new Array<Product>();
+        productos.forEach(element => {
+            if(element.cantidad > 0){
+            this.total += element.cantidad * element.precio; 
+            this.productos.push(element);    
+            }   
+        });   
+        return this.total;  
+    }
     public setPedido(productoPedido: ProductoPedido,clientes:Array<Cliente>,productos: Array<Product>  ){
-        this.id = productoPedido.id;
-        this.cantidad=  productoPedido.cantidadProducto;
+        this.id = productoPedido.id_pedido;
+        this.cantidad= productoPedido.cantidadProducto;
         this.fecha = productoPedido.fecha;
         this.total = productoPedido.total;
         this.productos = new Array<Product>();
@@ -42,8 +56,11 @@ export class Order{
         productos.forEach(element => {
             if(element.id == productoPedido.id_producto ){
                 console.log("Reconocio un producto");
+                element.cantidad =  element.cantidad + parseInt(productoPedido.cantidadProducto);
                 this.productos.push(element);
             }
         });
     }
+    
+    
 }

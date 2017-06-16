@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
-import { Persona } from '../_models/index';
+import { Order } from '../_models/index';
 
 @Injectable()
 export class OrderService {
@@ -20,8 +20,8 @@ export class OrderService {
         return this._http.get(this.url +'/pedidos/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    create(persona: Persona) {
-        return this._http.post(this.url +'/pedidos', persona, this.jwt()).map((response: Response) => response.json());
+    create(pedido: Order) {
+        return this._http.post(this.url +'/pedidos', pedido, this.jwt()).map((response: Response) => response.json());
     }
 
     // update(persona: Persona) {

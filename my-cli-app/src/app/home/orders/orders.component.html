@@ -10,7 +10,7 @@
                     <input type="text" class="form-control" [(ngModel)]='telfTxt' placeholder="Telefono" aria-describedby="basic-addon1">
                 </div>
 
-                <table *ngIf="telfTxt != ''" class="table table-bordered table-condensed table-hover">
+                <table *ngIf="telfTxt != ''" class="table table-borderedtable-condensed table-hover">
 
                     <thead>
                         <tr>
@@ -80,8 +80,6 @@
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
             </div>
-            <div class="col-sm-12" *ngIf="status=='pedir'">
-            </div>
         </div>
         <div class="col-sm-6">
             <br>
@@ -94,133 +92,198 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content col-sm-12">
+            <div class="modal-header col-sm-12">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Nuevo Pedido</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body col-sm-12">
                 <label for="Nombre">Nombre:</label>
                 <p>{{selectedClient.nombre}}</p>
                 <label for="Telefono">Telefono</label>
                 <p>{{selectedClient.telefono}}</p>
                 <label for="Direccion">Direccion:</label>
                 <p>{{selectedClient.calle}} {{selectedClient.altura}} {{selectedClient.piso}} {{selectedClient.depto}}, {{selectedClient.localidad}}</p>
-
-                <!--<div class="table-responsive">
-                    <table class="table table-hover table-condensed table-bordered ">
-                        <thead>
-                            <th class="text-center">Arepa <span ng-if="totalPedidoArepas() != 0">{{ totalPedidoArepas() | currency}} </span>
-                            </th>
-                            <th class="text-center">
-                                <img class="pull-left" src="img/icon/trigoMaiz/btnTrigoNegro.png" alt="IconoTrigo">Trigo
-                            </th>
-                            <th class="text-center">
-                                <img class="pull-left" src="img/icon/trigoMaiz/btnMaizNegro.png" alt="IconoMaiz"> Maiz
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="producto in productos.Slide1">
-                                <td>{{producto.nombre}}</td>
-                                <td>
-                                    <select name="singleSelect" ng-model="producto.cantidadTrigo" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                        </select>
-                                </td>
-                                <td>
-                                    <select name="singleSelect" ng-model="producto.cantidadMaiz" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                        </select>
-                                </td>
-                            </tr>
-                            <tr ng-repeat="producto in productos.Slide2">
-                                <td>{{producto.nombre}}</td>
-                                <td>
-                                    <select name="singleSelect" ng-model="producto.cantidadTrigo" ng-options="i for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                </select>
-                                </td>
-                                <td>
-                                    <select name="singleSelect" ng-model="producto.cantidadMaiz" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                        </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover table-condensed table-bordered ">
-                        <thead>
-                            <th class="text-center">Tequeño <span ng-if="totalPedidoTequenos() != 0">{{ totalPedidoTequenos() | currency}} </span>
-                            </th>
-                            <th class="text-center">
-                                Cantidad
-                            </th>
-                            <th class="text-center">
-                                Tipo
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="producto in productos.Slide3">
-                                <td>{{producto.nombre}}</td>
-                                <td>
-                                    <select name="singleSelect" ng-model="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                        </select>
-                                </td>
-                                <td><select ng-model="producto.tipo">
-                        <option value="" selected>Frito</option>
-                        <option>Congelado</option>
-                        </select>
-                                    </select>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover table-condensed table-bordered ">
-                        <thead>
-                            <th class="text-center">Empanadas<span ng-if="totalPedidoEmpanadas() != 0">{{ totalPedidoEmpanadas() | currency}} </span>
-                            </th>
-                            <th class="text-center">
-                                Cantidad
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="producto in productos.Slide4">
-                                <td>{{producto.nombre}}</td>
-                                <td>
-                                    <select name="singleSelect" ng-model="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                        </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
-                <!--<div class="table-responsive">
-            <table class="table table-hover table-condensed table-bordered ">
-                <thead>
-                    <th class="text-center">Empanadas<span ng-if="totalPedidoEmpanadas() != 0">{{ totalPedidoEmpanadas() | currency}} </span>
-                    </th>
-                    <th class="text-center">
-                        Cantidad
-                    </th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="producto in productos.Slide4">
-                        <td>{{producto.nombre}}</td>
-                        <td>
-                            <select name="singleSelect" ng-model="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-                        </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>-->
-                <!--</div>-->
+                <ng-container *ngIf="status =='buscar'">
+                    <div class="col-sm-6">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <th>Arepas de Maiz</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '1'">
+                                        <td>{{producto.nombre}}</td>
+                                        <td>
+                                            <select name="singleSelect" [(ngModel)]="producto.cantidad">
+                                            <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>
+                                        </select>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <th>Arepas de Trigo</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '2'">
+                                        <td>{{producto.nombre}}</td>
+                                        <td><select name="singleSelect" [(ngModel)]="producto.cantidad">
+                                            <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>
+                                        </select>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <th>Empanada</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '3'">
+                                        <td>{{producto.nombre}}</td>
+                                        <td>
+                                            <select name="singleSelect" [(ngModel)]="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"></select>
+                                        </td>
+                                        <td>
+                                            <select name="singleSelect" [(ngModel)]="producto.cantidad">
+                                            <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>
+                                        </select>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <th>Tequeños</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '4'">
+                                        <td>{{producto.nombre}}</td>
+                                        <td>
+                                            <select name="singleSelect" [(ngModel)]="producto.cantidad">
+                                            <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>
+                                        </select>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <th>Salsas</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '5'">
+                                        <td>{{producto.nombre}}</td>
+                                        <td>
+                                            <select name="singleSelect" [(ngModel)]="producto.cantidad">
+                                            <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>
+                                        </select>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <th>Postres</th>
+                                <th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '3'">
+                                        <td>{{producto.nombre}}</td>
+                                        <td>
+                                            <select name="singleSelect" [(ngModel)]="producto.cantidad">
+                                            <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>
+                                        </select>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-container>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="modal-body col-sm-12" *ngIf="status =='pedir'">
+                <table class="table table-responsive table-hover table-condensed table-bordered " ng-if="totalCantidad() > 0">
+                    <thead>
+                        <th class="text-center">Tipo Producto</th>
+
+                        <th class="text-center">Producto</th>
+                        <th class="text-center">Cantidad</th>
+                        <th class="text-center">Precio</th>
+                        <th class="text-center">Total</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of productos">
+                            <ng-container *ngIf="producto.cantidad > 0">
+                                <td *ngIf="producto.id_tipoProducto == '1'">
+                                    Arepa de Maiz
+                                </td>
+                                <td *ngIf="producto.id_tipoProducto == '2'">
+                                    Arepa de Trigo
+                                </td>
+                                <td *ngIf="producto.id_tipoProducto == '3'">
+                                    Tequeños
+                                </td>
+                                <td *ngIf="producto.id_tipoProducto == '4'">
+                                    salsa
+                                </td>
+                                <td *ngIf="producto.id_tipoProducto == '5'">
+                                    postre
+                                </td>
+                                <td>
+                                    {{producto.nombre}}
+                                </td>
+                                <td>
+                                    {{producto.cantidad}}
+                                </td>
+                                <td>
+                                    {{producto.precio | currency : 'USD' : true}}
+                                </td>
+                                <td>
+                                    {{producto.precio * producto.cantidad | currency : 'USD' : true}}
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer col-sm-12">
+                <h4>Total {{newOrder.totalCompra(productos) | currency: 'USD': '1.2-2'}} </h4>
+                <ng-container *ngIf="status == 'buscar'">
+                    <button type="button" class="btn btn-default" *ngIf="newOrder.totalCompra(productos) > 0 || status" (click)="status = 'pedir'">Siguiente</button>
+                </ng-container>
+                <button class="btn btn-default" *ngIf="status == 'pedir'" (click)="status = 'buscar'">Volver</button>
+                <button class="btn btn-default" *ngIf="status == 'pedir'" (click)="submitOrder(productos)">Pedir</button>
+                <button type="button " class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>

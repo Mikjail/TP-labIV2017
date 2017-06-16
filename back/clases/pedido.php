@@ -125,13 +125,12 @@ class Pedido
 	public static function TraerTodosLosPedidos(){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT O.id, O.id_pedido, SUM(O.cantidad) as cantidadProducto, 
+		$sql = "SELECT O.id, O.id_pedido, O.cantidad as cantidadProducto, 
 		O.id_producto, Pe.id_cliente, Pe.fecha, Pe.total
 				FROM producto_pedido O
                 INNER JOIN pedidos Pe
                 ON Pe.id = O.id_pedido
-				INNER JOIN clientes C 
-				GROUP BY O.id_producto, O.id_pedido";
+				INNER JOIN clientes C";
 
 		$consulta = $conexion->prepare($sql);
 		$consulta->execute();
@@ -158,13 +157,13 @@ class Pedido
 		$consulta->execute();
 		$pedido->id = $conexion->lastInsertId();
 
-		foreach($pedido->productosPedidos as $productoPedido){
+		foreach($pedido->productos as $productoPedido){
 				$sql = "INSERT INTO producto_pedido (id_pedido, id_producto, cantidad)
 					VALUES (:id_pedido, :id_producto, :cantidad)";
 					
 			$consulta = $conexion->prepare($sql);
 			$consulta->bindValue(":id_pedido", $pedido->id, PDO::PARAM_INT);
-			$consulta->bindValue(":id_producto", $productoPedido->id_producto, PDO::PARAM_INT);
+			$consulta->bindValue(":id_producto", $productoPedido->id, PDO::PARAM_INT);
 			$consulta->bindValue(":cantidad", $productoPedido->cantidad, PDO::PARAM_INT);
 			$consulta->execute();
 		}

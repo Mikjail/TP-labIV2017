@@ -52,12 +52,13 @@ export class ListOrdersComponent implements OnInit{
   
   
   setOrders(){
+    let idPedidos= new Array<number>();
     this.productoPedido.forEach(element => {
-          let idPedidos= new Array<number>();
           if(idPedidos.indexOf(element.id_pedido)!= -1){
             this.setFromExistingPedido(element);
           } 
           else{
+            idPedidos.push(element.id_pedido)
             this.setNewPedido(element);
           } 
     });

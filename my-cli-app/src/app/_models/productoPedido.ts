@@ -3,7 +3,7 @@ export class ProductoPedido{
     id_pedido: number;
     id_cliente: number;
     id_producto: number;
-    cantidadProducto:number;
+    cantidadProducto:string;
     precioProducto:number;
     fecha:Date;
     total:number;
