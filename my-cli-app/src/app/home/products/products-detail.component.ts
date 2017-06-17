@@ -19,11 +19,13 @@ const URL = 'http://localhost:8080/filesProduct';
 
 export class DetailProductsComponent implements OnInit{
  
-  private producto: Product;
+  public producto: Product;
   public productsForm: FormGroup;
   private editar=true;
   editarNow:boolean = false;
-  private selectOption: any;
+  public selectOption: any;
+  public submitted: boolean;
+
   public tipos = [ { 'id' : 1, 'nombre':'arepaMaiz'},
                    { 'id' : 2, 'nombre': 'arepaTrigo'}, 
                    { 'id' : 3, 'nombre': 'empanada'},
@@ -72,9 +74,9 @@ export class DetailProductsComponent implements OnInit{
   }
   
  
-  submitForm(){
+  submitForm(product , params){
+    this.submitted = true;
     this.producto.img ="assets/productos/"+this.uploader.queue[0]._file.name;
-    console.log(this.producto.img);
     this.productServices.update(this.producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),

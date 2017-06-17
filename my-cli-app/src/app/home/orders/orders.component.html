@@ -281,7 +281,7 @@
                     <button type="button" class="btn btn-default" *ngIf="newOrder.totalCompra(productos) > 0 || status" (click)="status = 'pedir'">Siguiente</button>
                 </ng-container>
                 <button class="btn btn-default" *ngIf="status == 'pedir'" (click)="status = 'buscar'">Volver</button>
-                <button class="btn btn-default" *ngIf="status == 'pedir'" (click)="submitOrder(productos)">Pedir</button>
+                <button class="btn btn-default" *ngIf="status == 'pedir'" data-dismiss="modal" (click)="submitOrder(productos)">Pedir</button>
                 <button type="button " class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

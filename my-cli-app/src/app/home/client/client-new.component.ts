@@ -15,12 +15,12 @@ const URL = 'http://localhost:8080/filesPerson';
 })
 
 export class NewClientComponent implements OnInit{
-  clientes: Array<Cliente>;
-  nuevo:boolean = false;
+  public clientes: Array<Cliente>;
+  public nuevo:boolean = false;
   public clientesForm: FormGroup;
-  cliente: Cliente;
-  sexo: Array<any> = ['m', 'f']
-
+  public cliente: Cliente;
+  public sexo: Array<any> = ['m', 'f']
+  public submitted:boolean;
   public uploader:FileUploader = new FileUploader({url: URL});
   public hasAnotherDropZoneOver:boolean = false;
 
@@ -49,7 +49,8 @@ export class NewClientComponent implements OnInit{
 
   
 
-   submitForm(){
+   submitForm(cliente, params:boolean){
+        this.submitted = true;
     this.cliente.foto =this.uploader.queue[0]._file.name;
     console.log(this.cliente.foto);
 

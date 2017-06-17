@@ -10,8 +10,7 @@ export class Product {
 
 
     setProductOrder(productOrder){
-        this.nombre = productOrder.nombre;
-        this.cantidad = productOrder.cantidad;
-        this.precio = productOrder.precio;
+        this.cantidad = parseInt(productOrder.cantidad);
+        this.precio = parseFloat(productOrder.precio);
     }
 }

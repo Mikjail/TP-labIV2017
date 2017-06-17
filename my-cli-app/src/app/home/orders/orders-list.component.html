@@ -52,8 +52,8 @@
                     <tbody>
                         <tr *ngFor="let productos of selectedOrder.productos">
                             <td>{{productos.nombre}}</td>
-                            <td>{{selectedOrder.cantidad}}</td>
-                            <td>{{productos.precio}}</td>
+                            <td>{{productos.cantidad}}</td>
+                            <td>{{productos.precio * productos.cantidad}}</td>
                         </tr>
                         <tr>
                             <td colspan="2">

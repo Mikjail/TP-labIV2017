@@ -17,27 +17,26 @@ export class ListOrdersComponent implements OnInit{
 
   clientes: Array<Cliente>;
   products: Array<Product>;
-  productoPedido : Array<ProductoPedido>;
   cliente: Cliente;
   pedidos : Array<Order>;
   selectedOrder: Order;
-
+  pedidosFromServer : Array<Order>;
   constructor(private orderService: OrderService,  private clienteService: ClienteService, private productServices: ProductService) {
     this.cliente = new Cliente();
-    this.productoPedido = new Array<ProductoPedido>();
     this.products = new Array<Product>();
     this.clientes = new Array<Cliente>();
     this.pedidos = new Array<Order>();    
     this.selectedOrder = new Order();
+    this.pedidosFromServer = new Array<Order>();    
    }
 
   ngOnInit() {
     this.getOrders();
   }
 
-  setProductoPedido(productoPedido:Array<ProductoPedido>){
-      this.productoPedido= productoPedido;
-      console.log(this.productoPedido);
+  setPedidos(pedidos:Array<Order>){
+      this.pedidosFromServer= pedidos;
+      console.log(this.pedidosFromServer);
 
   }
   setProducts(productos: Array<Product>){
@@ -47,42 +46,26 @@ export class ListOrdersComponent implements OnInit{
 
   setClients(clientes: Array<Cliente>){
    this.clientes = clientes;
-    console.log(this.clientes);
   }  
   
   
   setOrders(){
-    let idPedidos= new Array<number>();
-    this.productoPedido.forEach(element => {
-          if(idPedidos.indexOf(element.id_pedido)!= -1){
-            this.setFromExistingPedido(element);
-          } 
-          else{
-            idPedidos.push(element.id_pedido)
-            this.setNewPedido(element);
-          } 
+    this.pedidosFromServer.forEach(element => {
+            this.setNewPedido(element); 
     });
-    console.log(this.pedidos);
   }
 
-  setNewPedido(productoP){
+  setNewPedido(pedido: Order){
       let nuevoPedido= new Order();
-      nuevoPedido.setPedido(productoP, this.clientes, this.products);
-      this.pedidos.push(nuevoPedido); 
-  }
-  
-  setFromExistingPedido(productoP:ProductoPedido){
-        this.pedidos.forEach(element => {
-          if(element.id == productoP.id_pedido){
-             element.setProducto(productoP, this.products);
-          }
-        });
+      nuevoPedido.setPedido(pedido, this.clientes, this.products);
+      this.pedidos.push(nuevoPedido);
+     
   }
 
    getOrders(){
     let def = 
     this.orderService.getAll().subscribe(
-      data => this.setProductoPedido(data.orders),
+      data => this.setPedidos(data.orders),
       error => console.log(error),
       () => this.getProducts()
     );  

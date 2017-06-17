@@ -97,6 +97,15 @@ export class OrderComponent implements OnInit {
     }
   }
   
+
+
+  reloadPage(){
+
+    this._router.navigateByUrl('home').then(()=>{
+      this.status="buscar";
+    })
+    
+  }
    submitForm(){
     this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
@@ -112,7 +121,7 @@ export class OrderComponent implements OnInit {
       this.orderService.create(this.newOrder).subscribe(
         data => console.log(data),
         error => console.log("error"),
-        () => console.log("finished")
+        () => this.reloadPage()
       )
   }
 }

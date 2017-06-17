@@ -8,7 +8,7 @@ export class Order{
     id_cliente;
     cliente : Cliente;
     productos : Array<Product>;
-    cantidad: string;
+    cantidad: number;
     fecha : any;
     total: number;
     
@@ -16,7 +16,7 @@ export class Order{
         this.id=0;
         this.cliente = new Cliente();
         this.productos = new Array<Product>();
-        this.cantidad = "";
+        this.cantidad =0;
         this.fecha = "";
         this.total = 0;
         this.id_cliente = "";
@@ -34,32 +34,32 @@ export class Order{
         });   
         return this.total;  
     }
-    public setPedido(productoPedido: ProductoPedido,clientes:Array<Cliente>,productos: Array<Product>  ){
-        this.id = productoPedido.id_pedido;
-        this.cantidad= productoPedido.cantidadProducto;
-        this.fecha = productoPedido.fecha;
-        this.total = productoPedido.total;
-        this.productos = new Array<Product>();
-        this.setCliente(productoPedido, clientes);
-        this.setProducto(productoPedido, productos);
+    
+    public setPedido(pedido: any,clientes:Array<Cliente>,productos: Array<Product>){
+        this.id = pedido.id;
+        this.fecha = pedido.fecha;
+        this.total = pedido.total;
+        pedido.productos = JSON.parse(pedido.productos);
+        this.setCliente(pedido, clientes);
+        this.setProducto(pedido, productos);
     }
 
-    public setCliente(productoPedido:ProductoPedido, clientes:Array<Cliente>){
+    public setCliente(pedido:Order, clientes:Array<Cliente>){
           clientes.forEach(element => {
-              if(element.id == productoPedido.id_cliente){
+              if(element.id == pedido.id_cliente){
                   this.cliente = element;
               }
           });
     }
 
-    public setProducto(productoPedido:ProductoPedido, productos: Array<Product>){
-        productos.forEach(element => {
-            if(element.id == productoPedido.id_producto ){
-                console.log("Reconocio un producto");
-                element.cantidad =  element.cantidad + parseInt(productoPedido.cantidadProducto);
-                this.productos.push(element);
-            }
-        });
+    private setProducto(pedido:Order, productos: Array<Product>){
+        productos.forEach(productoNuevo => {
+           pedido.productos.forEach(productoPedido => {   
+               if(productoNuevo.id == productoPedido.id){
+                   this.productos.push(productoPedido);
+               } 
+           });
+       });
     }
     
     

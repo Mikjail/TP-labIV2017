@@ -21,7 +21,7 @@ export class NewProductsComponent implements OnInit{
     public tipos =[];
     public uploader:FileUploader = new FileUploader({url: URL});
     public hasAnotherDropZoneOver:boolean = false;
-
+    public submitted: boolean;
   
 constructor( private _router: Router, private _fb:FormBuilder, private productServices: ProductService, private productCategoryService: ProductCategoryService) {
     this.getProductCategory();
@@ -45,7 +45,8 @@ public fileOverAnother(e:any):void {
   }
   
 
-  submitForm(producto:Product){
+  submitForm(producto:Product, params:boolean){
+    this.submitted = true;
     producto.img =this.uploader.queue[0]._file.name;
     console.log(producto.img);
     this.productServices.create(producto).subscribe(
