@@ -5,7 +5,7 @@ import { Router} from '@angular/router';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Product } from '../../_models/product';
 import { ProductService, ProductCategoryService } from  '../../_services/index';
-const URL = 'http://localhost:8080/filesProduct';
+const URL = 'http://www.cambur-pinton.com/admin/back/filesProduct';
 
 @Component({
   selector: 'app-products-new',
@@ -47,8 +47,7 @@ public fileOverAnother(e:any):void {
 
   submitForm(producto:Product, params:boolean){
     this.submitted = true;
-    producto.img =this.uploader.queue[0]._file.name;
-    console.log(producto.img);
+    producto.img ="assets/productos/"+ this.uploader.queue[0]._file.name;
     this.productServices.create(producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),

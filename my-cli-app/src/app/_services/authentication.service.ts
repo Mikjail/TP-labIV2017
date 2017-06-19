@@ -7,26 +7,15 @@ import 'rxjs/add/operator/map'
 export class AuthenticationService {
     constructor(private http: Http) { }
 
-    login(nombre: string, password: string) {
+    login(usuario) {
         // let url = 'https://plusvibestudio-mikjail.c9users.io/back/index.php';
-        let url = 'http://localhost:8080';
-         
+        //let url = 'http://localhost:8080';
+        let url = 'http://www.cambur-pinton.com/admin/back';
+         console.log(usuario);
          //let url = 'http://localhost/proyectos/plusvibestudio/TPlaboratorioIV2016/back/index.php';
          let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8'); 
-        return this.http.post(url + '/auth/login', JSON.stringify({ nombre: nombre, password: password }),{
-        headers: headers
-        }).map((response :any) => {
-                let data = response.json();
-                console.log(data);
-                let user = response;
-                console.log(JSON.parse(user._body));
-                if (user) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    console.log(user);
-                }
-            });
+        return this.http.post(url + '/auth/login', usuario,{headers: headers}).map((response :any) =>response.json()); 
     }
 
     logout() {

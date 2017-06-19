@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ClienteService } from '../../_services/index';
 import { Cliente } from '../../_models/index';
-const URL = 'http://localhost:8080/filesPerson';
+const URL = 'http://www.cambur-pinton.com/admin/back/filesPerson';
 
 @Component({
   selector: 'app-client-new',
@@ -50,10 +50,8 @@ export class NewClientComponent implements OnInit{
   
 
    submitForm(cliente, params:boolean){
-        this.submitted = true;
-    this.cliente.foto =this.uploader.queue[0]._file.name;
-    console.log(this.cliente.foto);
-
+    this.submitted = true;
+    this.cliente.foto = this.uploader.queue[0]._file.name;
     this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),

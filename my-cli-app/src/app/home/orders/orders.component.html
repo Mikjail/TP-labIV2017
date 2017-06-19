@@ -1,7 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-
             <div class="col-sm-12" *ngIf="status == 'buscar'">
                 <br>
                 <button class="btn btn-primary pull-right" (click)="status = 'nuevo'">Nuevo</button>
@@ -47,27 +46,27 @@
                     </div>
                     <div class="form-group">
                         <label for="inputCalle" class="control-label">Calle</label>
-                        <input type="text" class="form-control" id="inputCalle" pattern="([A-z-ñ\s]){1,}$" maxlength="30" placeholder="Calle*" ng-model="calle">
+                        <input type="text" class="form-control" id="inputCalle" pattern="([A-z-ñ\s]){1,}$" maxlength="30" placeholder="Calle*" [(ngModel)]="cliente.calle" name="calle">
                         <div class="help-block with-errors">A-z</div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label for="inputAltura" class="control-label">Altura</label>
-                        <input type="text" class="form-control" id="inputAltura" pattern="^[0-9]{1,}" maxlength="12" placeholder="Altura*" ng-model="altura">
+                        <input type="text" class="form-control" id="inputAltura" pattern="^[0-9]{1,}" maxlength="12" placeholder="Altura*" [(ngModel)]="cliente.altura" name="altura">
                         <div class="help-block with-errors">0-99999</div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label for="inputAltura" class="control-label">Piso</label>
-                        <input type="text" class="form-control" id="inputPiso" pattern="^[0-9]{1,}" maxlength="8" placeholder="Piso*" ng-model="piso">
+                        <input type="text" class="form-control" id="inputPiso" pattern="^[0-9]{1,}" maxlength="8" placeholder="Piso*" [(ngModel)]="cliente.piso" name="piso">
                         <div class="help-block with-errors">0-999</div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label for="inputAltura" class="control-label">Depto</label>
-                        <input type="text" class="form-control" id="inputDepto" maxlength="8" placeholder="Depto*" ng-model="depto">
+                        <input type="text" class="form-control" id="inputDepto" maxlength="8" placeholder="Depto*" [(ngModel)]="cliente.depto" name="depto">
                         <div class="help-block with-errors">0-9-A-z</div>
                     </div>
                     <div class="form-group">
                         <label for="inputLocalidad">Localidad</label>
-                        <select class="form-control" id="inputLocalidad" placeholder="Localidad*" ng-model="localidad">
+                        <select class="form-control" id="inputLocalidad" placeholder="Localidad*" [(ngModel)]="cliente.localidad" name="localidad">
                         <option value="" disabled selected>Localidad</option>
                         <option>Belgrano</option>
                         <option>Cañitas</option>
@@ -83,9 +82,29 @@
         </div>
         <div class="col-sm-6">
             <br>
-            <router-outlet></router-outlet>
-        </div>
+            <div class="form-group">
+                <!--<input placeholder="Enter source location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #pickupInput [(ngModel)]="fromAdress" [formControl]="destinationInput">-->
+                <input placeholder="Enter destination" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #pickupOutput [(ngModel)]="mapClient" [formControl]="destinationOutput">
+            </div>
+            <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <!-- <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="iconurl">
+                    <sebm-google-map-info-window>
+                        <strong>InfoWindow content</strong>
+                    </sebm-google-map-info-window>
+                </sebm-google-map-marker> -->
+                <sebm-google-map-directions [origin]="origin" [destination]="destination">
+                    <sebm-google-map-info-window [disableAutoPan]="true">
+                        Hi, this is the content of the <strong>info window</strong>
+                    </sebm-google-map-info-window>
 
+                </sebm-google-map-directions>
+            </sebm-google-map>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div class="row">
+        <router-outlet></router-outlet>
     </div>
 </div>
 <div id="myModalCliente" class="modal fade" role="dialog">
@@ -286,4 +305,5 @@
             </div>
         </div>
     </div>
+
 </div>

@@ -11,6 +11,7 @@ export class Order{
     cantidad: number;
     fecha : any;
     total: number;
+    statusDelivery:number;
     
     constructor(){
         this.id=0;
@@ -20,6 +21,7 @@ export class Order{
         this.fecha = "";
         this.total = 0;
         this.id_cliente = "";
+        this.statusDelivery = 0;
     }
     
     

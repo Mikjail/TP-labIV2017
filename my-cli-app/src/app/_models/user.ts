@@ -4,5 +4,5 @@
     apellido: string;
     email: string;
     sexo: string;
-    pass:string;
+    password:string;
 }

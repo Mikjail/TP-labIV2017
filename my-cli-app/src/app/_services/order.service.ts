@@ -8,7 +8,8 @@ import { Order } from '../_models/index';
 @Injectable()
 export class OrderService {
 
-    url = 'http://localhost:8080';
+    //url = 'http://localhost:8080';
+    url = 'http://www.cambur-pinton.com/admin/back';
     
    constructor(private _http: Http) { }
    

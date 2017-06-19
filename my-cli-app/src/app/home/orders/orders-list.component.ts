@@ -87,6 +87,19 @@ export class ListOrdersComponent implements OnInit{
    );
   }
   
+  getDeliveryStatus(statusPedido){
+    
+    switch(statusPedido){
+      case "0":
+        return { "background-color": "red"}
+
+      case "1":
+        return {"background-color": "green"}    
+
+        default:
+        return {"background-color": "green"}    
+    }
+  }
   onSelect(pedido:Order){
     console.log("onSelect");
     this.selectedOrder = pedido;

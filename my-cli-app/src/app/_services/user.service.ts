@@ -6,7 +6,8 @@ import { User } from '../_models/index';
 @Injectable()
 export class UserService {
     constructor(private http: Http) { }
-    url = 'http://localhost:8080';
+    //url = 'http://localhost:8080';
+    url = 'http://www.cambur-pinton.com/admin/back';
     getAll() {
         return this.http.get(this.url +'/users', this.jwt()).map((response: Response) => response.json());
     }

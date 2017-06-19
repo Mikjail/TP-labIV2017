@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService } from '../_services/index';
+import { User } from '../_models/index';
+import { AlertService, AuthenticationService } from '../_services/index';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +10,17 @@ import { AuthenticationService } from '../_services/index';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    user: any = {};
+    userForm: any = {};
     loading = false;
     returnUrl: string;
-
+    user : User;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService) { }
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService) { 
+            this.user=new User();
+        }
 
     ngOnInit() {
         // reset login status
@@ -28,12 +32,22 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.user.username, this.user.password)
-            .subscribe(
+        this.user.nombre = this.userForm.username;
+        this.user.password = this.userForm.password;
+        this.authenticationService.login(this.user).subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    let user = data;
+                if(typeof user.miToken == 'undefined'){
+                    this.alertService.error("El usuario " + this.user.nombre + " o contraseña no existe!"); 
+                    this.loading = false;  
+                   }else{
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                     localStorage.setItem('currentUser', JSON.stringify(user));
+                     this.router.navigate([this.returnUrl]);
+                   }
                 },
                 error => {
+                    this.alertService.error(error);
                     this.loading = false;
                 });
     }

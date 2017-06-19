@@ -15,3 +15,7 @@ td,
 th {
     text-align: center;
 }
+
+.sebm-google-map-container {
+    height: 450px;
+}

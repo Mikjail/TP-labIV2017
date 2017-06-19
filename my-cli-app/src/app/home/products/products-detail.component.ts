@@ -7,7 +7,7 @@ import { Product } from '../../_models/product';
 
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ActivatedRoute, Params, Router} from '@angular/router';
-const URL = 'http://localhost:8080/filesProduct';
+const URL = 'http://www.cambur-pinton.com/admin/back/filesProduct';
 
 @Component({
   selector: 'app-products-detail',
@@ -76,7 +76,7 @@ export class DetailProductsComponent implements OnInit{
  
   submitForm(product , params){
     this.submitted = true;
-    this.producto.img ="assets/productos/"+this.uploader.queue[0]._file.name;
+    this.producto.img ="http://www.cambur-pinton.com/assets/productos/"+ this.uploader.queue[0]._file.name;
     this.productServices.update(this.producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),

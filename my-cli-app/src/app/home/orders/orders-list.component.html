@@ -9,6 +9,9 @@
                     <th>Nombre</th>
                     <th>Direccion</th>
                     <th>Telefono</th>
+                    <th>En Cocina</th>
+                    <th>Enviado</th>
+                    <th>Entregado</th>
                     <th>Detalles</th>
                 </tr>
             </thead>
@@ -18,6 +21,9 @@
                     <td>{{pedido.cliente.nombre}}</td>
                     <td>{{pedido.cliente.calle}} {{pedido.cliente.altura}}</td>
                     <td>{{pedido.cliente.telefono}}</td>
+                    <td [ngStyle]="pedido.statusDelivery == '0' ? getDeliveryStatus(pedido.statusDelivery) : ''"> </td>
+                    <td [ngStyle]="pedido.statusDelivery == '1' ? getDeliveryStatus(pedido.statusDelivery) : ''"> </td>
+                    <td [ngStyle]="pedido.statusDelivery == '2' ? getDeliveryStatus(pedido.statusDelivery) : ''"> </td>
                     <td><button class="btn btn-warning" (click)=onSelect(pedido) data-toggle="modal" data-target="#myModal">Detalles</button></td>
                 </tr>
             </ng-container>
@@ -65,9 +71,11 @@
                 </table>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Pedido Entregado</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 
     </div>
+
 </div>
