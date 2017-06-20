@@ -22,6 +22,7 @@ declare var jQuery:any;
 
 export class OrderComponent implements OnInit {
  
+
     @ViewChild("pickupInput")
     public pickupInputElementRef: ElementRef;
 
@@ -37,7 +38,7 @@ export class OrderComponent implements OnInit {
   public clientes: Array<Cliente>;
   public orders: Array<Order>;
   public cliente: Cliente;
-  public status:String = "buscar";
+  public status:String = "nuevo";
   public selectedClient: Cliente;
   public mapClient: any;
   public productos : Array<Product>;
@@ -114,11 +115,9 @@ export class OrderComponent implements OnInit {
                 return;
               } 
 
-                console.log(place); 
-                let adress = place.name.split(" ");
+                let adress = place.name.split(",");
                 this.cliente.localidad= place.vicinity;
                 this.cliente.calle=adress[0];
-                this.cliente.altura= adress[1];
 
               if (mode != 'ORG') {
                   //Origen de Amenabar 926, Buenos Aires, Argetina. (LOCAL)
@@ -218,11 +217,7 @@ export class OrderComponent implements OnInit {
 
   chageStatus(status){
     switch(status){
-      case "nuevo":
-        this.status= status;
-        break;
-
-      case "pedir":
+       case "pedir":
         this.status= status;
         break;
       
@@ -244,7 +239,10 @@ export class OrderComponent implements OnInit {
     this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => console.log("finished")
+      () => {
+         this.getClientes();
+         this.cliente = new Cliente();
+      }
     )
   }
 

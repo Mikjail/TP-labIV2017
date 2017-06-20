@@ -135,10 +135,6 @@ public static function TraerUnProductoPorId($id){
 		$conexion = self::CrearConexion();
 
 		
-		var_dump( $producto);
-
-		var_dump( $producto->id_tipoProducto);
-
 		$sql = "INSERT INTO productos (nombre, descripcion, ingredientes,
 		 img, id_tipoProducto, precio, cantidad)
 				VALUES (:nombre, :descripcion, :ingredientes,
@@ -202,7 +198,9 @@ public static function TraerUnProductoPorId($id){
 	public static function CrearConexion(){
 		try
 		{
-			$conexion = new PDO("mysql:host=localhost;dbname=camburpinton;charset=utf8;",'root','');
+			//$conexion = new PDO("mysql:host=0.0.0.0;dbname=c9;charset=utf8;",'mikjail','');
+			// $conexion = new PDO("mysql:host=localhost;dbname=camburpinton;charset=utf8;",'root','');
+				$conexion = new PDO("mysql:host=localhost;dbname=camburpinton;charset=utf8;",'mikjail','Juli.1012');
 			return $conexion;
 		}
 		catch (Exception $e) {

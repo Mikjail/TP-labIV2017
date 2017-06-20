@@ -76,7 +76,7 @@ export class DetailProductsComponent implements OnInit{
  
   submitForm(product , params){
     this.submitted = true;
-    this.producto.img ="http://www.cambur-pinton.com/assets/productos/"+ this.uploader.queue[0]._file.name;
+    this.producto.img ="assets/productos/"+ this.uploader.queue[0]._file.name;
     this.productServices.update(this.producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),

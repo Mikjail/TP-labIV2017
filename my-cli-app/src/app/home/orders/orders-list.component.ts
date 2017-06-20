@@ -88,16 +88,19 @@ export class ListOrdersComponent implements OnInit{
   }
   
   getDeliveryStatus(statusPedido){
-    
     switch(statusPedido){
-      case "0":
-        return { "background-color": "red"}
+     
+      case 0:
+        return { "background-color": "#f0ad4e"}
 
-      case "1":
-        return {"background-color": "green"}    
+      case 1:
+        return {"background-color": "#5bc0de"}   
+      
+      case 2:
+        return {"background-color": "#5cb85c"}    
 
-        default:
-        return {"background-color": "green"}    
+      default:
+        return {"background-color": "red"}    
     }
   }
   onSelect(pedido:Order){

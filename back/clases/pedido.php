@@ -8,6 +8,7 @@ class Pedido
     public $productos;
     public $fecha;
     public $total;
+	public $statusDelivery;
 //--------------------------------------------------------------------------------//
 //--GETTERS Y SETTERS
 
@@ -83,7 +84,7 @@ class Pedido
 	public static function TraerUnPedidoPorId($id){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT P.id, P.id_cliente, P.fecha, P.total, P.productos
+		$sql = "SELECT P.id, P.id_cliente, P.fecha, P.total, P.productos, P.statusDelivery
 				FROM pedidos P
 				WHERE :id = P.id";
 
@@ -98,7 +99,7 @@ class Pedido
 	public static function TraerTodosLosPedidos(){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT P.id, P.id_cliente, P.fecha, P.total, P.productos
+		$sql = "SELECT P.id, P.id_cliente, P.fecha, P.total, P.productos, P.statusDelivery
 				FROM pedidos P";
 
 		$consulta = $conexion->prepare($sql);
@@ -111,7 +112,7 @@ class Pedido
 	public static function Agregar($pedido){
 		$conexion = self::CrearConexion();
 
-		$sql = "INSERT INTO pedidos (id_cliente, productos, fecha, total)
+		$sql = "INSERT INTO pedidos (id_cliente, productos, fecha, total, statusDelivery)
 				VALUES (:id_cliente, :productos, :fecha, :total)";
 				
 		$consulta = $conexion->prepare($sql);	
@@ -119,6 +120,7 @@ class Pedido
 		$consulta->bindValue(":fecha", $pedido->fecha, PDO::PARAM_STR);
 		$consulta->bindValue(":productos", json_encode( $pedido->productos), PDO::PARAM_STR);
 		$consulta->bindValue(":total", $pedido->total, PDO::PARAM_STR);
+		$consulta->bindValue(":statusDelivery", $pedido->total, PDO::PARAM_INT);
 		// $consulta->bindValue(":sexo", $pedido->sexo, PDO::PARAM_STR);
 		// $consulta->bindValue(":foto", $pedido->foto, PDO::PARAM_STR);
 		// $consulta->bindValue(":pass", $pedido->pass, PDO::PARAM_STR)
@@ -146,7 +148,8 @@ class Pedido
 		try
 		{
 			//$conexion = new PDO("mysql:host=0.0.0.0;dbname=c9;charset=utf8;",'mikjail','');
-			$conexion = new PDO("mysql:host=localhost;dbname=camburpinton;charset=utf8;",'root','');
+			// $conexion = new PDO("mysql:host=localhost;dbname=camburpinton;charset=utf8;",'root','');
+				$conexion = new PDO("mysql:host=localhost;dbname=camburpinton;charset=utf8;",'mikjail','Juli.1012');
 			
 			return $conexion;
 		}

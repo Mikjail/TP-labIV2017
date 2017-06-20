@@ -1,72 +1,39 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <div class="col-sm-12" *ngIf="status == 'buscar'">
-                <br>
-                <button class="btn btn-primary pull-right" (click)="status = 'nuevo'">Nuevo</button>
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1">Telefono</span>
-                    <input type="text" class="form-control" [(ngModel)]='telfTxt' placeholder="Telefono" aria-describedby="basic-addon1">
+        <div class="col-sm-4" *ngIf="status=='nuevo'">
+            <br>
+            <form (ngSubmit)="submitForm()">
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="cliente.telefono" name="telefono">
+
                 </div>
-
-                <table *ngIf="telfTxt != ''" class="table table-borderedtable-condensed table-hover">
-
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Telefono</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cliente of clientes | searchClientByPhone: 'telefono' : telfTxt">
-                            <td>
-                                <a href="" (click)=onSelect(cliente) data-toggle="modal" data-target="#myModalCliente">{{cliente.nombre}}</a>
-
-                            </td>
-                            <td>
-                                {{cliente.telefono}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="col-sm-12" *ngIf="status=='nuevo'">
-                <br>
-                <button class="btn btn-primary pull-right" (click)="status = 'buscar'">Volver</button>
-                <br>
-                <form (ngSubmit)="submitForm()">
-                    <div class="form-group">
-                        <label for="">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="cliente.nombre" name="nombre">
-                    </div>
-                    <div class="form-group">
-                        <label>Telefono</label>
-                        <input class="form-control" type="number" placeholder="Ejemplo: '150'" [(ngModel)]="cliente.telefono" name="telefono">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputCalle" class="control-label">Calle</label>
-                        <input type="text" class="form-control" id="inputCalle" pattern="([A-z-ñ\s]){1,}$" maxlength="30" placeholder="Calle*" [(ngModel)]="cliente.calle" name="calle">
-                        <div class="help-block with-errors">A-z</div>
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label for="inputAltura" class="control-label">Altura</label>
-                        <input type="text" class="form-control" id="inputAltura" pattern="^[0-9]{1,}" maxlength="12" placeholder="Altura*" [(ngModel)]="cliente.altura" name="altura">
-                        <div class="help-block with-errors">0-99999</div>
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label for="inputAltura" class="control-label">Piso</label>
-                        <input type="text" class="form-control" id="inputPiso" pattern="^[0-9]{1,}" maxlength="8" placeholder="Piso*" [(ngModel)]="cliente.piso" name="piso">
-                        <div class="help-block with-errors">0-999</div>
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label for="inputAltura" class="control-label">Depto</label>
-                        <input type="text" class="form-control" id="inputDepto" maxlength="8" placeholder="Depto*" [(ngModel)]="cliente.depto" name="depto">
-                        <div class="help-block with-errors">0-9-A-z</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputLocalidad">Localidad</label>
-                        <select class="form-control" id="inputLocalidad" placeholder="Localidad*" [(ngModel)]="cliente.localidad" name="localidad">
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="cliente.nombre" name="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="inputCalle" class="control-label">Calle</label>
+                    <input placeholder="Direccion" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #pickupOutput [(ngModel)]="cliente.calle" [formControl]="destinationOutput">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="inputAltura" class="control-label">Altura</label>
+                    <input type="text" class="form-control" id="inputAltura" pattern="^[0-9]{1,}" maxlength="12" placeholder="Altura*" [(ngModel)]="cliente.altura" name="altura">
+                    <div class="help-block with-errors">0-99999</div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="inputAltura" class="control-label">Piso</label>
+                    <input type="text" class="form-control" id="inputPiso" pattern="^[0-9]{1,}" maxlength="8" placeholder="Piso*" [(ngModel)]="cliente.piso" name="piso">
+                    <div class="help-block with-errors">0-999</div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="inputAltura" class="control-label">Depto</label>
+                    <input type="text" class="form-control" id="inputDepto" maxlength="8" placeholder="Depto*" [(ngModel)]="cliente.depto" name="depto">
+                    <div class="help-block with-errors">0-9-A-z</div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLocalidad">Localidad</label>
+                    <select class="form-control" id="inputLocalidad" placeholder="Localidad*" [(ngModel)]="cliente.localidad" name="localidad">
                         <option value="" disabled selected>Localidad</option>
                         <option>Belgrano</option>
                         <option>Cañitas</option>
@@ -74,18 +41,14 @@
                         <option>Palermo</option>
                         <option>Villa Crespo</option>
                         </select>
-                        <div class="help-block with-errors">Belgrano - Cañitas - Nuñez - Colegiales - Palermo - Villa Crespo</div>
-                    </div>
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                </form>
-            </div>
+                    <div class="help-block with-errors">Belgrano - Cañitas - Nuñez - Colegiales - Palermo - Villa Crespo</div>
+                </div>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <br>
-            <div class="form-group">
-                <!--<input placeholder="Enter source location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #pickupInput [(ngModel)]="fromAdress" [formControl]="destinationInput">-->
-                <input placeholder="Enter destination" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #pickupOutput [(ngModel)]="mapClient" [formControl]="destinationOutput">
-            </div>
+            <br>
             <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                 <!-- <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="iconurl">
                     <sebm-google-map-info-window>
@@ -99,6 +62,40 @@
 
                 </sebm-google-map-directions>
             </sebm-google-map>
+        </div>
+        <div class="col-sm-4">
+            <br>
+            <table *ngIf="telfTxt != ''" class="table table-borderedtable-condensed table-hover">
+
+                <thead>
+                    <tr>
+                        <th colspan="3">
+                            Clientes Existentes
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Telefono</th>
+                        <th>Pedir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes | searchClientByPhone: 'telefono' : cliente.telefono">
+                        <td>
+                            {{cliente.nombre}}
+                        </td>
+                        <td>
+                            {{cliente.telefono}}
+                        </td>
+                        <td>
+                            <button (click)=onSelect(cliente) class="btn btn-success" data-toggle="modal" data-target="#myModalCliente">
+                                Pedir
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
     <br>
@@ -123,7 +120,7 @@
                 <p>{{selectedClient.telefono}}</p>
                 <label for="Direccion">Direccion:</label>
                 <p>{{selectedClient.calle}} {{selectedClient.altura}} {{selectedClient.piso}} {{selectedClient.depto}}, {{selectedClient.localidad}}</p>
-                <ng-container *ngIf="status =='buscar'">
+                <ng-container *ngIf="status =='nuevo'">
                     <div class="col-sm-6">
                         <table class="table table-hover table-condensed table-bordered">
                             <thead>
@@ -173,9 +170,6 @@
                                 <tr *ngFor="let producto of productos">
                                     <ng-container *ngIf="producto.id_tipoProducto == '3'">
                                         <td>{{producto.nombre}}</td>
-                                        <td>
-                                            <select name="singleSelect" [(ngModel)]="producto.cantidad" ng-options="i for i in [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"></select>
-                                        </td>
                                         <td>
                                             <select name="singleSelect" [(ngModel)]="producto.cantidad">
                                             <option *ngFor="let item of options" [ngValue]="item">{{item}}</option>

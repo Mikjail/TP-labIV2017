@@ -33,7 +33,6 @@ constructor( private _router: Router, private _fb:FormBuilder, private productSe
       'nombre' : ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'descripcion':  ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'ingredientes' :  ['',[<any>Validators.required]],
-      'cantidad': ['',[<any>Validators.required]],
       'precio':  ['',[<any>Validators.required]],
       'img' :  ['',[<any>Validators.required]],
     })
