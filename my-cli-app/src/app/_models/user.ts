@@ -5,4 +5,5 @@
     email: string;
     sexo: string;
     password:string;
+    role:string;    
 }

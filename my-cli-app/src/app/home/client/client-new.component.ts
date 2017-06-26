@@ -51,11 +51,20 @@ export class NewClientComponent implements OnInit{
 
    submitForm(cliente, params:boolean){
     this.submitted = true;
-    this.cliente.foto = this.uploader.queue[0]._file.name;
+    if(this.uploader.queue.length > 0){     
+        this.cliente.foto = this.uploader.queue[0]._file.name;
+    }
+    else{
+       this.cliente.foto = "";
+    }
     this.clienteService.create(this.cliente).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => this.uploader.uploadAll()
+      () =>  {
+        if(this.uploader.queue.length > 0){     
+            this.uploader.uploadAll()
+        }
+      }
     )
   }
 

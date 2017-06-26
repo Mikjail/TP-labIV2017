@@ -1,0 +1,52 @@
+<div class="col-md-offset-3 col-md-6">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <a routerLink="../" routerLinkActive="active-link" class="pull-right btn btn-success">Volver</a>
+            <form [formGroup]="userForm" novalidate (ngSubmit)="submitForm(userForm.value, userForm.valid)">
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ejemplo: 'Pepe'" [(ngModel)]="user.nombre" formControlName="nombre">
+                    <small [hidden]="userForm.controls.nombre.valid || (userForm.controls.nombre.pristine && !submitted)" class="text-danger">
+            El nombre del usuario es requerido (minimo 5 caracteres).
+          </small>
+                </div>
+                <div class="form-group">
+                    <label for="">apellido</label>
+                    <input type="text" class="form-control" placeholder="Ejemplo: 'Gonzales'" [(ngModel)]="user.apellido" formControlName="apellido">
+                    <small [hidden]="userForm.controls.apellido.valid || (userForm.controls.apellido.pristine && !submitted)" class="text-danger">
+            El apellido del usuario es requerido (minimo 5 caracteres).
+          </small>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" type="password" placeholder="contrasena" [(ngModel)]="user.password" formControlName="password">
+                    <small [hidden]="userForm.controls.password.valid || (userForm.controls.password.pristine && !submitted)" class="text-danger">
+            EL campo contraseña del usuario es requerido.
+          </small>
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="email" class="form-control" placeholder="Ejemplo: 'Hola123@example.com'" [(ngModel)]="user.email" formControlName="email">
+                    <small [hidden]="userForm.controls.email.valid || (userForm.controls.email.pristine && !submitted)" class="text-danger">
+            El email del usuario es requerido (minimo 5 caracteres).
+          </small>
+                </div>
+                <div class="form-group">
+                    <label for="inputRol">Rol del Usuario</label>
+                    <select class="form-control" id="inputRole" placeholder="Role*" [(ngModel)]="user.role" formControlName="role">
+                    <option value="" disabled selected>Role</option>
+                    <option value="user">User</option>
+                    <option value="admin"> Admin</option>
+                    </select>
+                    <div class="help-block with-errors">User - Admin</div>
+                </div>
+                <input formControlName="sexo" value="m" type="radio"> Masculino
+                <input formControlName="sexo" value="f" type="radio"> Femenino
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

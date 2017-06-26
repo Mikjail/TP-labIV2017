@@ -10,6 +10,7 @@ class Usuario
   	public $sexo;
   	public $perfil;
   	public $password;
+	public $role;	
 //--------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------------------------//
@@ -92,7 +93,7 @@ class Usuario
 	public static function TraerUnUsuarioPorId($id){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT U.id, U.nombre, U.apellido, U.email, U.perfil, U.sexo
+		$sql = "SELECT U.id, U.nombre, U.apellido, U.email, U.sexo, U.role
 				FROM usuarios U
 				WHERE U.id = :id";
 
@@ -107,7 +108,7 @@ class Usuario
 	public static function TraerTodosLosUsuarios(){
 		$conexion = self::CrearConexion();
 
-		$sql = "SELECT U.id, U.nombre, U.apellido, U.email, U.perfil, U.sexo
+		$sql = "SELECT U.id, U.nombre, U.apellido, U.email, U.sexo, U.role
 				FROM usuarios U";
 
 		$consulta = $conexion->prepare($sql);
@@ -121,7 +122,7 @@ class Usuario
 		$conexion = self::CrearConexion();
 	
 		
-		$sql = "SELECT U.id, U.nombre, U.apellido, U.email, U.perfil, U.sexo, U.pass
+		$sql = "SELECT U.id, U.nombre, U.apellido, U.email, U.sexo, U.pass, U.role
 				FROM usuarios U
 				WHERE U.nombre = :nombre AND U.pass = :pass";
 		
@@ -138,15 +139,15 @@ class Usuario
 	public static function Agregar($usuario){
 		$conexion = self::CrearConexion();
 
-		$sql = "INSERT INTO usuarios (nombre, apellido, email, sexo, perfil, password)
-				VALUES (:nombre, :apellido, :email, :sexo, :perfil, :pass)";
+		$sql = "INSERT INTO usuarios (nombre, apellido, email, sexo, role, pass)
+				VALUES (:nombre, :apellido, :email, :sexo, :role, :pass)";
 
 		$consulta = $conexion->prepare($sql);
 		$consulta->bindValue(":nombre", $usuario->nombre, PDO::PARAM_STR);
 		$consulta->bindValue(":apellido", $usuario->apellido, PDO::PARAM_STR);
 		$consulta->bindValue(":email", $usuario->email, PDO::PARAM_STR);
 		$consulta->bindValue(":sexo", $usuario->sexo, PDO::PARAM_STR);
-		$consulta->bindValue(":perfil", $usuario->perfil, PDO::PARAM_STR);
+		$consulta->bindValue(":role", $usuario->role, PDO::PARAM_STR);
 		$consulta->bindValue(":pass", $usuario->password, PDO::PARAM_STR);
 		$consulta->execute();
 
@@ -158,7 +159,7 @@ class Usuario
 		$conexion = self::CrearConexion();
 
 		$sql = "UPDATE usuarios
-				SET nombre = :nombre, apellido = :apellido, email = :email, sexo = :sexo, perfil = :perfil
+				SET nombre = :nombre, apellido = :apellido, email = :email, sexo = :sexo, role = :role
 				WHERE id = :id"; //, password = :pass
 
 		$consulta = $conexion->prepare($sql);
@@ -166,7 +167,7 @@ class Usuario
 		$consulta->bindValue(":apellido", $usuario->apellido, PDO::PARAM_STR);
 		$consulta->bindValue(":email", $usuario->email, PDO::PARAM_STR);
 		$consulta->bindValue(":sexo", $usuario->sexo, PDO::PARAM_STR);
-		$consulta->bindValue(":perfil", $usuario->perfil, PDO::PARAM_STR);
+		$consulta->bindValue(":role", $usuario->role, PDO::PARAM_STR);
 		//$consulta->bindValue(":pass", $usuario->password, PDO::PARAM_STR);
 		$consulta->bindValue(":id", $usuario->id, PDO::PARAM_INT);
 		$consulta->execute();

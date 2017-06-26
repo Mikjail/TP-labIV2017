@@ -11,10 +11,12 @@ import { routing } from './app.routing';
 import { AlertComponent } from './_directives/index';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/index';
-import { HomeComponent } from './home/index';
+import { HomeComponent } from './home/home/index';
 import { NoContentComponent } from './no-content/index';
 import { LoginComponent } from './login/index';
 
+import { NavComponent } from './home/index';
+import { UserComponent, NewUserComponent, UserListComponent } from './home/users/index';
 import { ProductsComponent, DetailProductsComponent, NewProductsComponent, ListProductsComponent } from './home/products/index';
 import { OrderComponent, ListOrdersComponent, SearchClientByPhone, DirectionsMapDirective } from './home/orders/index';
 import { ClientComponent, NewClientComponent, DetailClientComponent } from './home/client/index';
@@ -29,6 +31,7 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
     NoContentComponent,
     RegisterComponent,
     AlertComponent,
+    NavComponent,
     LoginComponent,
     OrderComponent,
     ListOrdersComponent,
@@ -40,6 +43,9 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
     NewClientComponent,
     DetailClientComponent,
     SearchClientByPhone,
+    UserComponent,
+    NewUserComponent,
+    UserListComponent,
     DirectionsMapDirective
     ],
   imports: [

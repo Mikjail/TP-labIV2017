@@ -1,0 +1,27 @@
+<br>
+<div class="row">
+    <a routerLink="./newUser" routerLinkActive="active-link" class="pull-right btn btn-success">Nuevo</a>
+
+    <table class="table table-hover table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Perfil</th>
+                <!--<th>Editar</th>-->
+                <th>Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>
+                    {{ user.nombre}}
+                </td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <!--<td><button class="btn btn-warning" (click)="userEditar(user)">Editar</button></td>-->
+                <td><button class="btn btn-danger" (click)="userBorrar(user.id)">Borrar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

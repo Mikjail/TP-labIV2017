@@ -1,6 +1,9 @@
 <div class="container">
+    <h1>
+        Pedidos
+    </h1>
     <div class="row">
-        <div class="col-sm-4" *ngIf="status=='nuevo'">
+        <div class="col-sm-4">
             <br>
             <form (ngSubmit)="submitForm()">
                 <div class="form-group">
@@ -65,7 +68,7 @@
         </div>
         <div class="col-sm-4">
             <br>
-            <table *ngIf="telfTxt != ''" class="table table-borderedtable-condensed table-hover">
+            <table class="table table-bordered table-condensed table-hover">
 
                 <thead>
                     <tr>
@@ -228,7 +231,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let producto of productos">
-                                    <ng-container *ngIf="producto.id_tipoProducto == '3'">
+                                    <ng-container *ngIf="producto.id_tipoProducto == '6'">
                                         <td>{{producto.nombre}}</td>
                                         <td>
                                             <select name="singleSelect" [(ngModel)]="producto.cantidad">
@@ -262,12 +265,15 @@
                                     Arepa de Trigo
                                 </td>
                                 <td *ngIf="producto.id_tipoProducto == '3'">
-                                    Tequeños
+                                    Empanadas
                                 </td>
                                 <td *ngIf="producto.id_tipoProducto == '4'">
-                                    salsa
+                                    Tequeños
                                 </td>
                                 <td *ngIf="producto.id_tipoProducto == '5'">
+                                    salsa
+                                </td>
+                                <td *ngIf="producto.id_tipoProducto == '6'">
                                     postre
                                 </td>
                                 <td>
@@ -290,10 +296,8 @@
 
             <div class="modal-footer col-sm-12">
                 <h4>Total {{newOrder.totalCompra(productos) | currency: 'USD': '1.2-2'}} </h4>
-                <ng-container *ngIf="status == 'buscar'">
-                    <button type="button" class="btn btn-default" *ngIf="newOrder.totalCompra(productos) > 0 || status" (click)="status = 'pedir'">Siguiente</button>
-                </ng-container>
-                <button class="btn btn-default" *ngIf="status == 'pedir'" (click)="status = 'buscar'">Volver</button>
+                <button type="button" class="btn btn-default" *ngIf="newOrder.totalCompra(productos) > 0 && status == 'nuevo'" (click)="status = 'pedir'">Siguiente</button>
+                <button class="btn btn-default" *ngIf="status == 'pedir'" (click)="status = 'nuevo'">Volver</button>
                 <button class="btn btn-default" *ngIf="status == 'pedir'" data-dismiss="modal" (click)="submitOrder(productos)">Pedir</button>
                 <button type="button " class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

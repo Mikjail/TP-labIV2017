@@ -34,7 +34,7 @@ constructor( private _router: Router, private _fb:FormBuilder, private productSe
       'descripcion':  ['',[<any>Validators.required,<any>Validators.minLength(5)]],
       'ingredientes' :  ['',[<any>Validators.required]],
       'precio':  ['',[<any>Validators.required]],
-      'img' :  ['',[<any>Validators.required]],
+      'img' :  [''],
     })
 
   }
@@ -46,14 +46,24 @@ public fileOverAnother(e:any):void {
 
   submitForm(producto:Product, params:boolean){
     this.submitted = true;
+    producto.cantidad= 0;
+     if(this.uploader.queue.length > 0){     
+      
     producto.img ="assets/productos/"+ this.uploader.queue[0]._file.name;
+    }
+    else{
+       producto.img ="";
+    }
     this.productServices.create(producto).subscribe(
       data => console.log(data),
       error => console.log("ERROR"),
-      () => this.uploader.uploadAll()
+      () => {
+        if(this.uploader.queue.length > 0){     
+            this.uploader.uploadAll()
+        }
+        this._router.navigateByUrl("/home/products")
+      }
     )
-    console.log(producto);
-
   }
 
   getProductCategory(){

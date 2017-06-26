@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+RewriteCond %{HTTP_HOST} ^www.cambur-pinton.com$ [NC]
+RewriteRule ^(.*)$ https://cambur-pinton.com/$1 [R=301,L]

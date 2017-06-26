@@ -9,23 +9,23 @@ export class UserService {
     //url = 'http://localhost:8080';
     url = 'http://www.cambur-pinton.com/admin/back';
     getAll() {
-        return this.http.get(this.url +'/users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.url +'/usuarios', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {
-        return this.http.get('/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.url +'/usuarios/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(user: User) {
-        return this.http.post('/users', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(this.url +'/usuarios', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {
-        return this.http.put('/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+        return this.http.put(this.url +'/usuarios/' + user.id, user, this.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {
-        return this.http.delete('/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.delete(this.url +'/usuarios/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods

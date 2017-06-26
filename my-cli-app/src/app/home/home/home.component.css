@@ -1,0 +1,22 @@
+.home {
+    height: 100vh;
+    background: url("https://cambur-pinton.com/assets/img/background001.jpg") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.food {
+    height: 100vh;
+}
+
+.imgEmpanadas {
+    height: 50vh;
+    margin-top: 8vh;
+}
+
+.imgArepas {
+    height: 50vh;
+    margin-top: 8vh;
+}

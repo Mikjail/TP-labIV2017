@@ -113,14 +113,14 @@ class Pedido
 		$conexion = self::CrearConexion();
 
 		$sql = "INSERT INTO pedidos (id_cliente, productos, fecha, total, statusDelivery)
-				VALUES (:id_cliente, :productos, :fecha, :total)";
+				VALUES (:id_cliente, :productos, :fecha, :total, :statusDelivery)";
 				
 		$consulta = $conexion->prepare($sql);	
 		$consulta->bindValue(":id_cliente", $pedido->id_cliente, PDO::PARAM_INT);
 		$consulta->bindValue(":fecha", $pedido->fecha, PDO::PARAM_STR);
 		$consulta->bindValue(":productos", json_encode( $pedido->productos), PDO::PARAM_STR);
 		$consulta->bindValue(":total", $pedido->total, PDO::PARAM_STR);
-		$consulta->bindValue(":statusDelivery", $pedido->total, PDO::PARAM_INT);
+		$consulta->bindValue(":statusDelivery", $pedido->statusDelivery, PDO::PARAM_INT);
 		// $consulta->bindValue(":sexo", $pedido->sexo, PDO::PARAM_STR);
 		// $consulta->bindValue(":foto", $pedido->foto, PDO::PARAM_STR);
 		// $consulta->bindValue(":pass", $pedido->pass, PDO::PARAM_STR)

@@ -51,10 +51,34 @@ export class ListOrdersComponent implements OnInit{
   
   setOrders(){
     this.pedidosFromServer.forEach(element => {
-            this.setNewPedido(element); 
+            let today =  this.getTodayFormat();
+            console.log(today);
+            if(element.fecha == today){
+                this.setNewPedido(element);
+            } 
     });
   }
 
+  getTodayFormat(){
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth()+1; //January is 0!
+    var year = today.getFullYear();
+    let dayString : String;
+    let monthString : String;
+    if(day<10){
+      
+        dayString = '0'+ day;
+    }
+    else{
+        dayString = day.toString();
+    } 
+    if(month<10){
+      
+        monthString='0'+month;
+    } 
+    return year + "-" +  monthString +"-"+dayString ;
+  }
   setNewPedido(pedido: Order){
       let nuevoPedido= new Order();
       nuevoPedido.setPedido(pedido, this.clientes, this.products);

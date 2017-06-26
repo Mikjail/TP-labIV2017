@@ -14,10 +14,13 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
 });
 
+
+
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
     return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+            // ->withHeader('Access-Control-Allow-Origin', 'http://cambur-pinton.com')
+			->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
 			->withHeader('Access-Control-Allow-Credentials', 'true');	
@@ -61,8 +64,8 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 			$token = array(
 			    "id" => $usuarioLogueado->id,
 			    "nombre" => $usuarioLogueado->nombre,
-			    "perfil" => $usuarioLogueado->perfil,
 			    "email" => $usuarioLogueado->email,
+				"userRole" => $usuarioLogueado->role,
 			    "exp" => time()+100000
 			);
 			//Codifico el token con la función encode()
@@ -138,7 +141,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 	});
 #USUARIOS
     //Alta de Usuario
-	$app->post("/usuarios/{usuario}", function($request, $response, $args){
+	$app->post("/usuarios", function($request, $response, $args){
 		//Recupero los datos del formulario de alta del usuario en un stdClass
 		$usuario = json_decode($request->getBody()); // $usuario->nombre = "Mika"
 		//Modifico el usuario
@@ -158,8 +161,6 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 
     //Tomar todos los usuarios
 	$app->get("/usuarios", function($request, $response, $args){
-		var_dump("Hola MUNDO");
-		$respuesta["consulta"] = "Lista de usuarios";
 		//Traigo todos los usuarios
 		require_once "clases/usuario.php";
 		$usuarios = Usuario::TraerTodosLosUsuarios();		
@@ -189,7 +190,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 	});
 
     //Modificar Usuario
-	$app->put("/usuarios/{usuario}", function($request, $response, $args){
+	$app->put("/usuarios", function($request, $response, $args){
 		//Recupero los datos del formulario de modificación del usuario en un stdClass
 		$usuario = json_decode($request->getBody()); // $usuario->nombre = "Mika" 
 		//Modifico el usuario
@@ -577,7 +578,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 		    // $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 		    //$uploadPath = "../". DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 		    // $uploadPath = 'C:\xampp\htdocs\proyectos\plusvibestudio\TP-labIV2017\my-cli-app\src\assets\fotos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-		    $uploadPath = 'http://www.cambur-pinton.com\assets\fotos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+		    $uploadPath = 'http://www.cambur-pinton.com/assets/fotos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 			move_uploaded_file( $tempPath, $uploadPath );
 		    $respuesta["mensaje"] = 'Archivo Cargado!';
 		} else {
@@ -589,29 +590,24 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 	});
 
 	$app->post("/filesProduct", function($request, $response, $args){
-		if ( !empty( $_FILES ) ) {
-					// Check file size
-			if ($_FILES["fileToUpload"]["size"] > 500000) {
-				echo "Sorry, your file is too large.";
-				$uploadOk = 0;
-			}
+		if ( !empty( $_FILES ) || !($_FILES["fileToUpload"]["size"] > 500000) ) {
 			// Allow certain file formats
-			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-			&& $imageFileType != "gif" ) {
-				echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-				$uploadOk = 0;
-			}
-			// Check if $uploadOk is set to 0 by an error
-			if ($uploadOk == 0) {
-				$respuesta["error"]= "Sorry, your file was not uploaded.";
-			// if everything is ok, try to upload file
-			}			
+			// if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+			// && $imageFileType != "gif" ) {
+			// 	echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+			// 	$uploadOk = 0;
+			// }
+			// // Check if $uploadOk is set to 0 by an error
+			// if ($uploadOk == 0) {
+			// 	$respuesta["error"]= "Sorry, your file was not uploaded.";
+			// // if everything is ok, try to upload file
+			// }			
 		#-------------------------------------------------------------------------------------------------------#
 		    $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
 		    // $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 		    //$uploadPath = "../". DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-		    $uploadPath = 'assets' . DIRECTORY_SEPARATOR .'productos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-		    move_uploaded_file( $tempPath, $uploadPath );
+		    $uploadPath = 'http://www.cambur-pinton.com/assets/productos/'. $_FILES[ 'file' ][ 'name' ];
+			move_uploaded_file( $tempPath, $uploadPath );
 		    $respuesta["mensaje"] = 'Archivo Cargado!';
 		} else {
 		    $respuesta["error"] = 'No se cargo el archivo';
